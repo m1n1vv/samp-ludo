@@ -8,11 +8,11 @@ const
 	MAX_LUDO_OBJECTS_POLYGON = 20,
 	MAX_LUDO_OBJECTS_BLOCKS1 = 48,
 	MAX_LUDO_OBJECTS_BLOCKS2 = 12,
-	MAX_LUDO_OBJECTS_BORDER = 200,
+	MAX_LUDO_OBJECTS_BORDER = 252,
 	MAX_LUDO_OBJECTS_WALLS = 16;
 
 const
-	Float:LUDO_DISTANCE = 300.0,
+	Float:LUDO_DISTANCE = 400.0,
 	Float:LUDO_NEW_Z = 300.0,
 	Float:LUDO_POLYGON_Z = 0.05,
 	Float:LUDO_BORDER_Z1 = -5.1380,
@@ -31,7 +31,7 @@ static const
 	{
 		{8839, !"vgsecarshow", !"lightgreen2_32"},				//зеленый
 		{8839, !"vgsecarshow", !"lightblue2_32"},				//синий
-		{8538, !"vgsrailroad", !"concreteyellow256 copy"},			//желтый
+		{8538, !"vgsrailroad", !"concreteyellow256 copy"},		//желтый
 		{10412, !"hotel1", !"carpet_red_256"}					//красный
 	},
 	Float:ludo_map_trumpets[MAX_LUDO_PLAYERS][] = //18987
@@ -365,10 +365,6 @@ static const
 		{19.26000, 66.25000, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
 		{66.25000, -19.26000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
 		{-19.26000, -66.25000, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
-		{-71.50000, 23.98800, LUDO_BORDER_Z2, 90.00000, 0.00000, -90.00000},
-		{23.98800, 71.50000, LUDO_BORDER_Z2, 90.00000, 0.00000, 0.00000},
-		{-23.98800, -71.50000, LUDO_BORDER_Z2, 90.00000, 0.00000, 0.00000},
-		{71.50000, -23.98800, LUDO_BORDER_Z2, 90.00000, 0.00000, -90.00000},
 		{0.00000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
 		{9.63000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
 		{-9.63000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
@@ -384,7 +380,63 @@ static const
 		{19.26000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
 		{-76.66200, 19.26000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
 		{-19.26000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
-		{76.66200, -19.26000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000}
+		{76.66200, -19.26000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-24.16400, -71.41200, LUDO_BORDER_Z2, 90.00000, 0.00000, 0.00000},
+		{24.16400, 71.41200, LUDO_BORDER_Z2, 90.00000, 0.00000, 0.00000},
+		{71.41200, -24.16400, LUDO_BORDER_Z2, 90.00000, 0.00000, 90.00000},
+		{-71.41200, 24.16400, LUDO_BORDER_Z2, 90.00000, 0.00000, 90.00000},
+		{76.66200, -28.89000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, -38.53000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, -48.17000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, -67.45000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{19.26000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{28.89000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{38.53000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{48.17000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{57.81000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{67.45000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{71.79400, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{76.66200, 19.26000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, 28.89000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, 38.53000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, 48.17000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, 57.81000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, 67.45000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, 71.93400, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-28.89000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-38.53000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-48.17000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-57.81000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-67.45000, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-71.79400, -76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-76.66200, -28.89000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, -19.26000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, -38.53000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, -48.17000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, -57.81000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, -57.81000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, -67.45000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{76.66200, -71.93400, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.64864, -71.95892, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, 28.89000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, 38.53000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, 48.17000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, 57.81000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.66200, 67.45000, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{-76.64860, 71.95890, LUDO_BORDER_Z1, 0.00000, 0.00000, 0.00000},
+		{28.89000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{38.53000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{48.17000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{57.81000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{67.45000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{71.79400, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-19.26000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-28.89000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-38.53000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-48.17000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-57.81000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-67.45000, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000},
+		{-71.79400, 76.66200, LUDO_BORDER_Z1, 0.00000, 0.00000, 90.00000}
 	},
 	Float:ludo_map_walls[MAX_LUDO_OBJECTS_WALLS][] = //19379
 	{
@@ -411,17 +463,17 @@ public OnGameModeInit()
 	new
 		ludo_object;
 
-	ludo_object = CreateDynamicObject(19128, 0.00000, 0.00000, 0.04125+LUDO_NEW_Z, 0.00000, 0.00000, 0.00000, -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-	SetDynamicObjectMaterial(ludo_object, 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
+	ludo_object = CreateObject(19128, 0.00000, 0.00000, 0.04125+LUDO_NEW_Z, 0.00000, 0.00000, 0.00000, LUDO_DISTANCE);
+	SetObjectMaterial(ludo_object, 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
 
 	for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
 	{
 		ludo_object = CreateDynamicObject(18987, ludo_map_trumpets[i][0], ludo_map_trumpets[i][1], ludo_map_trumpets[i][2]+LUDO_NEW_Z, 0.0, ludo_map_trumpets[i][4], ludo_map_trumpets[i][5], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetDynamicObjectMaterial(ludo_object, 0, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
 
-		ludo_object = CreateDynamicObject(18850, ludo_map_cars_spawn[i][0], ludo_map_cars_spawn[i][1], ludo_map_cars_spawn[i][2]+LUDO_NEW_Z, 0.0, ludo_map_cars_spawn[i][4], ludo_map_cars_spawn[i][5], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-		SetDynamicObjectMaterial(ludo_object, 1, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
-		SetDynamicObjectMaterial(ludo_object, 5, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
+		ludo_object = CreateObject(18850, ludo_map_cars_spawn[i][0], ludo_map_cars_spawn[i][1], ludo_map_cars_spawn[i][2]+LUDO_NEW_Z, 0.0, ludo_map_cars_spawn[i][4], ludo_map_cars_spawn[i][5], LUDO_DISTANCE);
+		SetObjectMaterial(ludo_object, 1, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
+		SetObjectMaterial(ludo_object, 5, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
 
 		ludo_object = CreateDynamicObject(18783, ludo_map_finish[i][0], ludo_map_finish[i][1], ludo_map_finish[i][2]+LUDO_NEW_Z, 0.0, ludo_map_finish[i][4], ludo_map_finish[i][5], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetDynamicObjectMaterial(ludo_object, 1, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
