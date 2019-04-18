@@ -31,7 +31,7 @@ static const
 	{
 		{8839, !"vgsecarshow", !"lightgreen2_32"},				//зеленый
 		{8839, !"vgsecarshow", !"lightblue2_32"},				//синий
-		{8538, !"vgsrailroad", !"concreteyellow256 copy"},		//желтый
+		{8538, !"vgsrailroad", !"concreteyellow256 copy"},			//желтый
 		{10412, !"hotel1", !"carpet_red_256"}					//красный
 	},
 	Float:ludo_map_trumpets[MAX_LUDO_PLAYERS][] = //18987
