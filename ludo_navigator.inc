@@ -267,7 +267,8 @@ static
 CMD:u(playerid, params[])
 {
 	new
-		index;
+		index,
+		index2;
 
 	LudoInfo[uOldPointID] += LudoInfo[uNewPointID];
 	LudoInfo[uNewPointID] = strval(params);
@@ -486,13 +487,15 @@ CMD:u(playerid, params[])
 				}
 				default:
 				{
+					index2 = i-MAX_LUDO_NAVIGATOR_POINTS-1;
+					
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][0], 
-						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][1], 
-						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][3], 
+						ludo_navigator_lines_finish_2[0][index2][0], 
+						ludo_navigator_lines_finish_2[0][index2][1], 
+						ludo_navigator_lines_finish_2[0][index2][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines_finish_2[0][index2][3], 
 						0.0, 
-						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][5], 
+						ludo_navigator_lines_finish_2[0][index2][5],  
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 
