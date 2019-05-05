@@ -458,15 +458,34 @@ public OnGameModeInit()
 
 	for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
 	{
-		ludo_objs_trumpets[i] = CreateDynamicObject(18987, ludo_map_trumpets[i][0], ludo_map_trumpets[i][1], ludo_map_trumpets[i][2]+LUDO_NEW_Z, 0.0, ludo_map_trumpets[i][4], ludo_map_trumpets[i][5], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-		SetDynamicObjectMaterial(ludo_objs_trumpets[i], 0, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
+		ludo_objs_trumpets[i] = CreateDynamicObject(18987, 
+			ludo_map_trumpets[i][0], 
+			ludo_map_trumpets[i][1], 
+			ludo_map_trumpets[i][2]+LUDO_NEW_Z, 
+			0.0, 0.0, 0.0, 
+			-1, -1, -1, 
+			LUDO_DISTANCE, LUDO_DISTANCE);
+		SetColorDynamicLudo(ludo_objs_trumpets[i], i);
 
-		ludo_object = CreateObject(18850, ludo_map_cars_spawn[i][0], ludo_map_cars_spawn[i][1], ludo_map_cars_spawn[i][2]+LUDO_NEW_Z, 0.0, ludo_map_cars_spawn[i][4], ludo_map_cars_spawn[i][5], LUDO_DISTANCE);
-		SetObjectMaterial(ludo_object, 1, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
-		SetObjectMaterial(ludo_object, 5, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
+		ludo_object = CreateObject(18850, 
+			ludo_map_cars_spawn[i][0], 
+			ludo_map_cars_spawn[i][1], 
+			ludo_map_cars_spawn[i][2]+LUDO_NEW_Z, 
+			0.0, 0.0, 
+			ludo_map_cars_spawn[i][5], 
+			LUDO_DISTANCE);
+		SetColorLudo(ludo_object, i, 1);
+		SetColorLudo(ludo_object, i, 5);
 
-		ludo_object = CreateDynamicObject(18783, ludo_map_finish[i][0], ludo_map_finish[i][1], ludo_map_finish[i][2]+LUDO_NEW_Z, 0.0, ludo_map_finish[i][4], ludo_map_finish[i][5], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-		SetDynamicObjectMaterial(ludo_object, 1, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
+		ludo_object = CreateDynamicObject(18783, 
+			ludo_map_finish[i][0], 
+			ludo_map_finish[i][1], 
+			ludo_map_finish[i][2]+LUDO_NEW_Z, 
+			0.0, 0.0, 
+			ludo_map_finish[i][5], 
+			-1, -1, -1, 
+			LUDO_DISTANCE, LUDO_DISTANCE);
+		SetColorDynamicLudo(ludo_object, i, 1);
 
 		for (new j = 0; j < MAX_LUDO_OBJECTS_PLAYER_BLOCKS; j++)
 		{
@@ -488,8 +507,15 @@ public OnGameModeInit()
 				SetDynamicObjectMaterialText(ludo_object, 0, !"START", 130, !"Arial", 170, 1, -1, 0, 1);
 			}
 			
-			ludo_object = CreateDynamicObject(19381, ludo_map_player[i][j][0], ludo_map_player[i][j][1], ludo_map_player[i][j][2]+LUDO_NEW_Z, 0.0, ludo_map_player[i][j][4], ludo_map_player[i][j][5], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-			SetDynamicObjectMaterial(ludo_object, 0, ludo_map_colors[i][lm_id], ludo_map_colors[i][lm_lib], ludo_map_colors[i][lm_texture], 0xFFFFFFFF);
+			ludo_object = CreateDynamicObject(19381,
+				ludo_map_player[i][j][0], 
+				ludo_map_player[i][j][1], 
+				ludo_map_player[i][j][2]+LUDO_NEW_Z, 
+				0.0, 90.0, 
+				ludo_map_player[i][j][5], 
+				-1, -1, -1, 
+				LUDO_DISTANCE, LUDO_DISTANCE);
+			SetColorDynamicLudo(ludo_object, i);
 		}
 	}
 
