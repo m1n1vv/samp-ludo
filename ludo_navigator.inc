@@ -302,9 +302,9 @@ CMD:u(playerid, params[])
 		LudoInfo[uIndexObject] = 2;
 	}
 
-	if (LudoInfo[uNumPointID] < MAX_LUDO_NAVIGATOR_POINTS)
+	for (new i = LudoInfo[uOldPointID], j = LudoInfo[uNewPointID]+LudoInfo[uOldPointID]; i < j; i++)
 	{
-		for (new i = LudoInfo[uOldPointID], j = LudoInfo[uNewPointID]+LudoInfo[uOldPointID]; i < j; i++)
+		if (LudoInfo[uNumPointID] < MAX_LUDO_NAVIGATOR_POINTS)
 		{
 			if (i >= MAX_LUDO_NAVIGATOR_POINTS)
 				break;
@@ -408,34 +408,31 @@ CMD:u(playerid, params[])
 				}
 			}
 		}
-	}
-
-	if (LudoInfo[uNumPointID] >= MAX_LUDO_NAVIGATOR_POINTS)
-	{
-		for (new i = LudoInfo[uNumPointID]-MAX_LUDO_NAVIGATOR_POINTS, j =  LudoInfo[uNewPointID]+LudoInfo[uOldPointID]-MAX_LUDO_NAVIGATOR_POINTS; i < j; i++)
+		else
 		{
-			if (i >= MAX_LUDO_NAVIGATOR_POINTS_P)
+			if (i >= MAX_LUDO_NAVIGATOR_POINTS_P+MAX_LUDO_NAVIGATOR_POINTS)
 			{
 				SendClientMessage(playerid, -1, !"Финиш");
 				break;
 			}
 
 			//создание точек на дорожке к дому
-			LudoInfo[uObjectsPoint][i+MAX_LUDO_NAVIGATOR_POINTS] = CreateDynamicObject(19844, 
-				ludo_navigator_player_points[0][i][0], 
-				ludo_navigator_player_points[0][i][1], 
-				ludo_navigator_player_points[0][i][2]+LUDO_NEW_Z, 
-				0.0, ludo_navigator_player_points[0][i][4], 
-				ludo_navigator_player_points[0][i][5], 
+			LudoInfo[uObjectsPoint][i] = CreateDynamicObject(19844, 
+				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][0], 
+				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][1], 
+				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][2]+LUDO_NEW_Z, 
+				0.0, 
+				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][4], 
+				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][5], 
 				-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-			SetDynamicObjectMaterial(LudoInfo[uObjectsPoint][i+MAX_LUDO_NAVIGATOR_POINTS], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
+			SetDynamicObjectMaterial(LudoInfo[uObjectsPoint][i], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 
 			LudoInfo[uNumPointID]++;
 
 			//создание напрвления
 			index = LudoInfo[uIndexObject];
 
-			switch (i+MAX_LUDO_NAVIGATOR_POINTS)
+			switch (i)
 			{
 				case 47:
 				{
@@ -490,12 +487,12 @@ CMD:u(playerid, params[])
 				default:
 				{
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines_finish_2[0][i-1][0], 
-						ludo_navigator_lines_finish_2[0][i-1][1], 
-						ludo_navigator_lines_finish_2[0][i-1][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines_finish_2[0][i-1][3], 
+						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][0], 
+						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][1], 
+						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][3], 
 						0.0, 
-						ludo_navigator_lines_finish_2[0][i-1][5], 
+						ludo_navigator_lines_finish_2[0][i-MAX_LUDO_NAVIGATOR_POINTS-1][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 
@@ -503,7 +500,7 @@ CMD:u(playerid, params[])
 				}
 			}
 
-			if (i == MAX_LUDO_NAVIGATOR_POINTS_P-1)
+			if (i == MAX_LUDO_NAVIGATOR_POINTS_P+MAX_LUDO_NAVIGATOR_POINTS-1)
 			{
 				SendClientMessage(playerid, -1, !"Финиш");
 				break;
