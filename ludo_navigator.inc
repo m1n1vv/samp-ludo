@@ -268,7 +268,8 @@ CMD:u(playerid, params[])
 {
 	new
 		index,
-		index2;
+		index2,
+		index3;
 
 	LudoInfo[uOldPointID] += LudoInfo[uNewPointID];
 	LudoInfo[uNewPointID] = strval(params);
@@ -315,9 +316,7 @@ CMD:u(playerid, params[])
 				ludo_navigator_points[i][0], 
 				ludo_navigator_points[i][1], 
 				ludo_navigator_points[i][2]+LUDO_NEW_Z, 
-				0.0, 
-				ludo_navigator_points[i][4], 
-				ludo_navigator_points[i][5], 
+				0.0, 0.0, 0.0, 
 				-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 			SetDynamicObjectMaterial(LudoInfo[uObjectsPoint][i], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
@@ -418,13 +417,13 @@ CMD:u(playerid, params[])
 			}
 
 			//создание точек на дорожке к дому
+			index2 = i-MAX_LUDO_NAVIGATOR_POINTS;
+
 			LudoInfo[uObjectsPoint][i] = CreateDynamicObject(19844, 
-				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][0], 
-				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][1], 
-				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][2]+LUDO_NEW_Z, 
-				0.0, 
-				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][4], 
-				ludo_navigator_player_points[0][i-MAX_LUDO_NAVIGATOR_POINTS][5], 
+				ludo_navigator_player_points[0][index2][0], 
+				ludo_navigator_player_points[0][index2][1], 
+				ludo_navigator_player_points[0][index2][2]+LUDO_NEW_Z, 
+				0.0, 0.0, 0.0, 
 				-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 			SetDynamicObjectMaterial(LudoInfo[uObjectsPoint][i], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 
@@ -441,8 +440,7 @@ CMD:u(playerid, params[])
 						ludo_navigator_lines_finish_1[0][0][0], 
 						ludo_navigator_lines_finish_1[0][0][1], 
 						ludo_navigator_lines_finish_1[0][0][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines_finish_1[0][0][3], 
-						0.0, 
+						0.0, 0.0, 
 						ludo_navigator_lines_finish_1[0][0][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
@@ -453,8 +451,7 @@ CMD:u(playerid, params[])
 						ludo_navigator_lines_finish_1[0][1][0], 
 						ludo_navigator_lines_finish_1[0][1][1], 
 						ludo_navigator_lines_finish_1[0][1][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines_finish_1[0][1][3], 
-						0.0, 
+						0.0, 0.0, 
 						ludo_navigator_lines_finish_1[0][1][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
@@ -465,8 +462,7 @@ CMD:u(playerid, params[])
 						ludo_navigator_lines_finish_1[0][2][0], 
 						ludo_navigator_lines_finish_1[0][2][1], 
 						ludo_navigator_lines_finish_1[0][2][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines_finish_1[0][2][3], 
-						0.0, 
+						0.0, 0.0, 
 						ludo_navigator_lines_finish_1[0][2][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
@@ -477,8 +473,7 @@ CMD:u(playerid, params[])
 						ludo_navigator_lines_finish_1[0][3][0], 
 						ludo_navigator_lines_finish_1[0][3][1], 
 						ludo_navigator_lines_finish_1[0][3][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines_finish_1[0][3][3], 
-						0.0, 
+						0.0, 0.0, 
 						ludo_navigator_lines_finish_1[0][3][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
@@ -487,15 +482,14 @@ CMD:u(playerid, params[])
 				}
 				default:
 				{
-					index2 = i-MAX_LUDO_NAVIGATOR_POINTS-1;
-					
+					index3 = i-MAX_LUDO_NAVIGATOR_POINTS-1;
+
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines_finish_2[0][index2][0], 
-						ludo_navigator_lines_finish_2[0][index2][1], 
-						ludo_navigator_lines_finish_2[0][index2][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines_finish_2[0][index2][3], 
-						0.0, 
-						ludo_navigator_lines_finish_2[0][index2][5],  
+						ludo_navigator_lines_finish_2[0][index3][0], 
+						ludo_navigator_lines_finish_2[0][index3][1], 
+						ludo_navigator_lines_finish_2[0][index3][2]+LUDO_NEW_Z, 
+						90.0, 0.0, 
+						ludo_navigator_lines_finish_2[0][index3][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 
