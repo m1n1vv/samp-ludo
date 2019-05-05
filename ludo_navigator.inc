@@ -256,7 +256,7 @@ enum
 		uNewPointID,
 		uOldPointID,
 		uNumPointID,
-		UObjectsLine[MAX_LUDO_NAVIGATOR_LINES_START+MAX_LUDO_NAVIGATOR_LINES+MAX_LUDO_NAVIGATOR_LINES_TR+MAX_LUDO_NAVIGATOR_LINES_FINISH],
+		uObjectsLine[MAX_LUDO_NAVIGATOR_LINES_START+MAX_LUDO_NAVIGATOR_LINES+MAX_LUDO_NAVIGATOR_LINES_TR+MAX_LUDO_NAVIGATOR_LINES_FINISH],
 		uIndexObject,
 		uOldIndexObject
 	}
@@ -279,7 +279,7 @@ CMD:u(playerid, params[])
 	if (LudoInfo[uOldPointID] == 0)
 	{
 		//направление первого хода
-		LudoInfo[UObjectsLine][0] = CreateDynamicObject(19366, 
+		LudoInfo[uObjectsLine][0] = CreateDynamicObject(19366, 
 			ludo_navigator_lines_start[0][0][0], 
 			ludo_navigator_lines_start[0][0][1], 
 			ludo_navigator_lines_start[0][0][2]+LUDO_NEW_Z, 
@@ -287,9 +287,9 @@ CMD:u(playerid, params[])
 			ludo_navigator_lines_start[0][0][4], 
 			ludo_navigator_lines_start[0][0][5], 
 			-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-		SetDynamicObjectMaterial(LudoInfo[UObjectsLine][0], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
-		
-		LudoInfo[UObjectsLine][1] = CreateDynamicObject(19366, 
+		SetDynamicObjectMaterial(LudoInfo[uObjectsLine][0], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+
+		LudoInfo[uObjectsLine][1] = CreateDynamicObject(19366, 
 			ludo_navigator_lines_start[0][1][0], 
 			ludo_navigator_lines_start[0][1][1], 
 			ludo_navigator_lines_start[0][1][2]+LUDO_NEW_Z, 
@@ -297,7 +297,7 @@ CMD:u(playerid, params[])
 			ludo_navigator_lines_start[0][1][4], 
 			ludo_navigator_lines_start[0][1][5], 
 			-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-		SetDynamicObjectMaterial(LudoInfo[UObjectsLine][1], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+		SetDynamicObjectMaterial(LudoInfo[uObjectsLine][1], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 		
 		LudoInfo[uIndexObject] = 2;
 	}
@@ -330,7 +330,7 @@ CMD:u(playerid, params[])
 				case 0: continue;
 				case 5, 17, 29, 41: //2 объекта
 				{
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19378, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
 						ludo_navigator_lines[index-2][0], 
 						ludo_navigator_lines[index-2][1], 
 						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
@@ -338,11 +338,11 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines[index-2][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
 					index++;
 
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19378, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
 						ludo_navigator_lines[index-2][0], 
 						ludo_navigator_lines[index-2][1], 
 						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
@@ -350,13 +350,13 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines[index-2][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
 					LudoInfo[uIndexObject] += 2;
 				}
 				case 6, 18, 30, 42: //3 объекта
 				{
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19378, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
 						ludo_navigator_lines[index-2][0], 
 						ludo_navigator_lines[index-2][1], 
 						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
@@ -364,11 +364,11 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines[index-2][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
 					index++;
 
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19366, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
 						ludo_navigator_lines[index-2][0], 
 						ludo_navigator_lines[index-2][1], 
 						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
@@ -376,11 +376,11 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines[index-2][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
 					index++;
 
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19366, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
 						ludo_navigator_lines[index-2][0], 
 						ludo_navigator_lines[index-2][1], 
 						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
@@ -388,13 +388,13 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines[index-2][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
 					LudoInfo[uIndexObject] += 3;
 				}
 				default: //1 объект
 				{
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19378, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
 						ludo_navigator_lines[index-2][0], 
 						ludo_navigator_lines[index-2][1], 
 						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
@@ -402,7 +402,7 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines[index-2][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
 					LudoInfo[uIndexObject]++;
 				}
@@ -439,7 +439,7 @@ CMD:u(playerid, params[])
 			{
 				case 47:
 				{
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19366, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
 						ludo_navigator_lines_finish_1[0][0][0], 
 						ludo_navigator_lines_finish_1[0][0][1], 
 						ludo_navigator_lines_finish_1[0][0][2]+LUDO_NEW_Z, 
@@ -447,11 +447,11 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines_finish_1[0][0][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
 					index++;
 
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19366, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
 						ludo_navigator_lines_finish_1[0][1][0], 
 						ludo_navigator_lines_finish_1[0][1][1], 
 						ludo_navigator_lines_finish_1[0][1][2]+LUDO_NEW_Z, 
@@ -459,11 +459,11 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines_finish_1[0][1][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, ludo_map_colors[0][lm_id], ludo_map_colors[0][lm_lib], ludo_map_colors[0][lm_texture], 0xFFFFFFFF);
 
 					index++;
 
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19366, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
 						ludo_navigator_lines_finish_1[0][2][0], 
 						ludo_navigator_lines_finish_1[0][2][1], 
 						ludo_navigator_lines_finish_1[0][2][2]+LUDO_NEW_Z, 
@@ -471,11 +471,11 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines_finish_1[0][2][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 
 					index++;
 
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19366, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
 						ludo_navigator_lines_finish_1[0][3][0], 
 						ludo_navigator_lines_finish_1[0][3][1], 
 						ludo_navigator_lines_finish_1[0][3][2]+LUDO_NEW_Z, 
@@ -483,13 +483,13 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines_finish_1[0][3][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 
 					LudoInfo[uIndexObject] += 4;
 				}
 				default:
 				{
-					LudoInfo[UObjectsLine][index] = CreateDynamicObject(19378, 
+					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
 						ludo_navigator_lines_finish_2[0][i-1][0], 
 						ludo_navigator_lines_finish_2[0][i-1][1], 
 						ludo_navigator_lines_finish_2[0][i-1][2]+LUDO_NEW_Z, 
@@ -497,7 +497,7 @@ CMD:u(playerid, params[])
 						0.0, 
 						ludo_navigator_lines_finish_2[0][i-1][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetDynamicObjectMaterial(LudoInfo[UObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
+					SetDynamicObjectMaterial(LudoInfo[uObjectsLine][index], 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 
 					LudoInfo[uIndexObject]++;
 				}
@@ -518,7 +518,7 @@ CMD:u(playerid, params[])
 
 	for (new i = 0, j = LudoInfo[uOldIndexObject]; i < j; i++)
 	{
-		SetDynamicObjectMaterial(LudoInfo[UObjectsLine][i], 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
+		SetDynamicObjectMaterial(LudoInfo[uObjectsLine][i], 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
 	}
 
 	Streamer_Update(playerid, STREAMER_TYPE_OBJECT);
