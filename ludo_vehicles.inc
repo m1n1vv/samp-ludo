@@ -6,7 +6,7 @@
 static const
 	ludo_vehicles_colors[MAX_LUDO_PLAYERS] =
 	{
-		137,
+		86,
 		135,
 		228,
 		175
