@@ -3,14 +3,6 @@
 #endif
 #define LUDO_NAVIGATOR
 
-const
-	MAX_LUDO_NAVIGATOR_POINTS = 47,
-	MAX_LUDO_NAVIGATOR_POINTS_P = 7,
-	MAX_LUDO_NAVIGATOR_LINES = 58,
-	MAX_LUDO_NAVIGATOR_LINES_TR = 4,
-	MAX_LUDO_NAVIGATOR_LINES_FINISH = 6,
-	MAX_LUDO_NAVIGATOR_LINES_START = 2;
-
 static const
 	Float:ludo_navigator_points[MAX_LUDO_NAVIGATOR_POINTS+1][] = //19844
 	{
@@ -246,23 +238,6 @@ static const
 			{-13.75000, 0.00000, -4.68600, 90.00000, 0.00000, -90.00000}
 		}
 	};
-
-enum
-	ludo_player_info
-	{
-		uRoomID,
-		uPlayerID,
-		uObjectsPoint[MAX_LUDO_NAVIGATOR_POINTS+MAX_LUDO_NAVIGATOR_POINTS_P],
-		uNewPointID,
-		uOldPointID,
-		uNumPointID,
-		uObjectsLine[MAX_LUDO_NAVIGATOR_LINES_START+MAX_LUDO_NAVIGATOR_LINES+MAX_LUDO_NAVIGATOR_LINES_TR+MAX_LUDO_NAVIGATOR_LINES_FINISH],
-		uIndexObject,
-		uOldIndexObject
-	}
-
-static
-	PlayerLudo[MAX_PLAYERS][ludo_player_info];
 
 CMD:u(playerid, params[])
 {
