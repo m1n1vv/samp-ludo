@@ -452,7 +452,8 @@ CMD:u(playerid, params[])
 						LUDO_DISTANCE, LUDO_DISTANCE);
 					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
-					LudoInfo[uIndexObject]++;			}
+					LudoInfo[uIndexObject]++;
+				}
 			}
 		}
 		else
