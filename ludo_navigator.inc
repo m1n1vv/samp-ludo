@@ -269,7 +269,13 @@ CMD:u(playerid, params[])
 	new
 		index,
 		index2,
-		index3;
+		index3,
+		index4,
+		index5,
+
+		player_number,
+		player_index,
+		player_warn;
 
 	LudoInfo[uOldPointID] += LudoInfo[uNewPointID];
 	LudoInfo[uNewPointID] = strval(params);
@@ -278,30 +284,52 @@ CMD:u(playerid, params[])
 	if (LudoInfo[uNumPointID] >= MAX_LUDO_NAVIGATOR_POINTS_P+MAX_LUDO_NAVIGATOR_POINTS)
 		return SendClientMessage(playerid, -1, !"Путь пройден");
 
+	player_number = 1;
+	player_number--;
+
+	switch(player_number)
+	{
+		case 1: 
+		{
+			player_index = 12;
+			player_warn = 3;
+		}
+		case 2:
+		{
+			player_index = 24;
+			player_warn = 6;
+		}
+		case 3:
+		{
+			player_index = 36;
+			player_warn = 9;
+		}
+	}
+
 	if (LudoInfo[uOldPointID] == 0)
 	{
 		//направление первого хода
 		LudoInfo[uObjectsLine][0] = CreateDynamicObject(19366, 
-			ludo_navigator_lines_start[0][0][0], 
-			ludo_navigator_lines_start[0][0][1], 
-			ludo_navigator_lines_start[0][0][2]+LUDO_NEW_Z, 
+			ludo_navigator_lines_start[player_number][0][0], 
+			ludo_navigator_lines_start[player_number][0][1], 
+			ludo_navigator_lines_start[player_number][0][2]+LUDO_NEW_Z, 
 			0.0, 
-			ludo_navigator_lines_start[0][0][4], 
-			ludo_navigator_lines_start[0][0][5], 
+			ludo_navigator_lines_start[player_number][0][4], 
+			ludo_navigator_lines_start[player_number][0][5], 
 			-1, -1, -1, 
 			LUDO_DISTANCE, LUDO_DISTANCE);
-		SetColorDynamicLudo(LudoInfo[uObjectsPoint][0], 0);
+		SetColorDynamicLudo(LudoInfo[uObjectsLine][0], player_number);
 
 		LudoInfo[uObjectsLine][1] = CreateDynamicObject(19366, 
-			ludo_navigator_lines_start[0][1][0], 
-			ludo_navigator_lines_start[0][1][1], 
-			ludo_navigator_lines_start[0][1][2]+LUDO_NEW_Z, 
+			ludo_navigator_lines_start[player_number][1][0], 
+			ludo_navigator_lines_start[player_number][1][1], 
+			ludo_navigator_lines_start[player_number][1][2]+LUDO_NEW_Z, 
 			0.0, 
-			ludo_navigator_lines_start[0][1][4], 
-			ludo_navigator_lines_start[0][1][5], 
+			ludo_navigator_lines_start[player_number][1][4], 
+			ludo_navigator_lines_start[player_number][1][5], 
 			-1, -1, -1, 
 			LUDO_DISTANCE, LUDO_DISTANCE);
-		SetColorDynamicLudo(LudoInfo[uObjectsPoint][1], 0);
+		SetColorDynamicLudo(LudoInfo[uObjectsLine][1], player_number);
 		
 		LudoInfo[uIndexObject] = 2;
 	}
@@ -313,20 +341,25 @@ CMD:u(playerid, params[])
 			if (i >= MAX_LUDO_NAVIGATOR_POINTS)
 				break;
 
+			index4 = i+player_index;
+			index4 %= MAX_LUDO_NAVIGATOR_POINTS+1;
+
 			//создание точек до дорожки к дому
 			LudoInfo[uObjectsPoint][i] = CreateDynamicObject(19844, 
-				ludo_navigator_points[i][0], 
-				ludo_navigator_points[i][1], 
-				ludo_navigator_points[i][2]+LUDO_NEW_Z, 
+				ludo_navigator_points[index4][0], 
+				ludo_navigator_points[index4][1], 
+				ludo_navigator_points[index4][2]+LUDO_NEW_Z, 
 				0.0, 0.0, 0.0, 
 				-1, -1, -1, 
 				LUDO_DISTANCE, LUDO_DISTANCE);
-			SetColorDynamicLudo(LudoInfo[uObjectsPoint][i], 0);
+			SetColorDynamicLudo(LudoInfo[uObjectsPoint][i], player_number);
 
 			LudoInfo[uNumPointID]++;
 
 			//создание напрвления
 			index = LudoInfo[uIndexObject];
+			index5 = index+player_index+player_warn-2;
+			index5 %= MAX_LUDO_NAVIGATOR_LINES+2;
 
 			switch (i)
 			{
@@ -334,87 +367,92 @@ CMD:u(playerid, params[])
 				case 5, 17, 29, 41: //2 объекта
 				{
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines[index-2][0], 
-						ludo_navigator_lines[index-2][1], 
-						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index-2][3], 
+						ludo_navigator_lines[index5][0], 
+						ludo_navigator_lines[index5][1], 
+						ludo_navigator_lines[index5][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index5][3], 
 						0.0, 
-						ludo_navigator_lines[index-2][5], 
+						ludo_navigator_lines[index5][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
-					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], 0);
+					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
 					index++;
+					index5++;
+					index5 %= MAX_LUDO_NAVIGATOR_LINES+1;
 
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines[index-2][0], 
-						ludo_navigator_lines[index-2][1], 
-						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index-2][3], 
+						ludo_navigator_lines[index5][0], 
+						ludo_navigator_lines[index5][1], 
+						ludo_navigator_lines[index5][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index5][3], 
 						0.0, 
-						ludo_navigator_lines[index-2][5], 
+						ludo_navigator_lines[index5][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
-					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], 0);
+					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
 					LudoInfo[uIndexObject] += 2;
 				}
 				case 6, 18, 30, 42: //3 объекта
 				{
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines[index-2][0], 
-						ludo_navigator_lines[index-2][1], 
-						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index-2][3], 
+						ludo_navigator_lines[index5][0], 
+						ludo_navigator_lines[index5][1], 
+						ludo_navigator_lines[index5][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index5][3], 
 						0.0, 
-						ludo_navigator_lines[index-2][5], 
+						ludo_navigator_lines[index5][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
-					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], 0);
+					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
 					index++;
+					index5++;
+					index5 %= MAX_LUDO_NAVIGATOR_LINES+1;
 
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
-						ludo_navigator_lines[index-2][0], 
-						ludo_navigator_lines[index-2][1], 
-						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index-2][3], 
+						ludo_navigator_lines[index5][0], 
+						ludo_navigator_lines[index5][1], 
+						ludo_navigator_lines[index5][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index5][3], 
 						0.0, 
-						ludo_navigator_lines[index-2][5], 
+						ludo_navigator_lines[index5][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
-					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], 0);
+					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
 					index++;
+					index5++;
+					index5 %= MAX_LUDO_NAVIGATOR_LINES+1;
 
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
-						ludo_navigator_lines[index-2][0], 
-						ludo_navigator_lines[index-2][1], 
-						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index-2][3], 
+						ludo_navigator_lines[index5][0], 
+						ludo_navigator_lines[index5][1], 
+						ludo_navigator_lines[index5][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index5][3], 
 						0.0, 
-						ludo_navigator_lines[index-2][5], 
+						ludo_navigator_lines[index5][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
-					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], 0);
+					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
 					LudoInfo[uIndexObject] += 3;
 				}
 				default: //1 объект
 				{
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines[index-2][0], 
-						ludo_navigator_lines[index-2][1], 
-						ludo_navigator_lines[index-2][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index-2][3], 
+						ludo_navigator_lines[index5][0], 
+						ludo_navigator_lines[index5][1], 
+						ludo_navigator_lines[index5][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index5][3], 
 						0.0, 
-						ludo_navigator_lines[index-2][5], 
+						ludo_navigator_lines[index5][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
-					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], 0);
+					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
-					LudoInfo[uIndexObject]++;
-				}
+					LudoInfo[uIndexObject]++;			}
 			}
 		}
 		else
@@ -429,9 +467,9 @@ CMD:u(playerid, params[])
 			index2 = i-MAX_LUDO_NAVIGATOR_POINTS;
 
 			LudoInfo[uObjectsPoint][i] = CreateDynamicObject(19844, 
-				ludo_navigator_player_points[0][index2][0], 
-				ludo_navigator_player_points[0][index2][1], 
-				ludo_navigator_player_points[0][index2][2]+LUDO_NEW_Z, 
+				ludo_navigator_player_points[player_number][index2][0], 
+				ludo_navigator_player_points[player_number][index2][1], 
+				ludo_navigator_player_points[player_number][index2][2]+LUDO_NEW_Z, 
 				0.0, 0.0, 0.0, 
 				-1, -1, -1, 
 				LUDO_DISTANCE, LUDO_DISTANCE);
@@ -447,34 +485,34 @@ CMD:u(playerid, params[])
 				case 47:
 				{
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
-						ludo_navigator_lines_finish_1[0][0][0], 
-						ludo_navigator_lines_finish_1[0][0][1], 
-						ludo_navigator_lines_finish_1[0][0][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines_finish_1[player_number][0][0], 
+						ludo_navigator_lines_finish_1[player_number][0][1], 
+						ludo_navigator_lines_finish_1[player_number][0][2]+LUDO_NEW_Z, 
 						0.0, 0.0, 
-						ludo_navigator_lines_finish_1[0][0][5], 
+						ludo_navigator_lines_finish_1[player_number][0][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
-					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], 0);
+					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
 					index++;
 
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
-						ludo_navigator_lines_finish_1[0][1][0], 
-						ludo_navigator_lines_finish_1[0][1][1], 
-						ludo_navigator_lines_finish_1[0][1][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines_finish_1[player_number][1][0], 
+						ludo_navigator_lines_finish_1[player_number][1][1], 
+						ludo_navigator_lines_finish_1[player_number][1][2]+LUDO_NEW_Z, 
 						0.0, 0.0, 
-						ludo_navigator_lines_finish_1[0][1][5], 
+						ludo_navigator_lines_finish_1[player_number][1][5], 
 						-1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
-					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], 0);
+					SetColorDynamicLudo(LudoInfo[uObjectsLine][index], player_number);
 
 					index++;
 
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
-						ludo_navigator_lines_finish_1[0][2][0], 
-						ludo_navigator_lines_finish_1[0][2][1], 
-						ludo_navigator_lines_finish_1[0][2][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines_finish_1[player_number][2][0], 
+						ludo_navigator_lines_finish_1[player_number][2][1], 
+						ludo_navigator_lines_finish_1[player_number][2][2]+LUDO_NEW_Z, 
 						0.0, 0.0, 
-						ludo_navigator_lines_finish_1[0][2][5], 
+						ludo_navigator_lines_finish_1[player_number][2][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
 					WhiteColorLudo(LudoInfo[uObjectsLine][index]);
@@ -482,11 +520,11 @@ CMD:u(playerid, params[])
 					index++;
 
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19366, 
-						ludo_navigator_lines_finish_1[0][3][0], 
-						ludo_navigator_lines_finish_1[0][3][1], 
-						ludo_navigator_lines_finish_1[0][3][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines_finish_1[player_number][3][0], 
+						ludo_navigator_lines_finish_1[player_number][3][1], 
+						ludo_navigator_lines_finish_1[player_number][3][2]+LUDO_NEW_Z, 
 						0.0, 0.0, 
-						ludo_navigator_lines_finish_1[0][3][5], 
+						ludo_navigator_lines_finish_1[player_number][3][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
 					WhiteColorLudo(LudoInfo[uObjectsLine][index]);
@@ -498,11 +536,11 @@ CMD:u(playerid, params[])
 					index3 = i-MAX_LUDO_NAVIGATOR_POINTS-1;
 
 					LudoInfo[uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines_finish_2[0][index3][0], 
-						ludo_navigator_lines_finish_2[0][index3][1], 
-						ludo_navigator_lines_finish_2[0][index3][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines_finish_2[player_number][index3][0], 
+						ludo_navigator_lines_finish_2[player_number][index3][1], 
+						ludo_navigator_lines_finish_2[player_number][index3][2]+LUDO_NEW_Z, 
 						90.0, 0.0, 
-						ludo_navigator_lines_finish_2[0][index3][5], 
+						ludo_navigator_lines_finish_2[player_number][index3][5], 
 						-1, -1, -1, 
 						LUDO_DISTANCE, LUDO_DISTANCE);
 					WhiteColorLudo(LudoInfo[uObjectsLine][index]);
