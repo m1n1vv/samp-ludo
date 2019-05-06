@@ -541,8 +541,17 @@ stock LudoNavigation(playerid, pointsnum)
 				break;
 			}
 		}
-	}
+	}}
 
+	Streamer_Update(playerid, STREAMER_TYPE_OBJECT);
+
+	LudoDeNavigation(playerid);
+
+	return 1;
+}
+
+stock LudoDeNavigation(playerid)
+{
 	for (new i = 0, j = PlayerLudo[playerid][uOldPointID]; i < j; i++)
 	{
 		BlackColorLudo(PlayerLudo[playerid][uObjectsPoint][i]);
