@@ -577,3 +577,4 @@ public OnGameModeInit()
 #if  defined ludo_map_OnGameModeInit
 	forward ludo_map_OnGameModeInit();
 #endif
+ 
