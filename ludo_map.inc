@@ -1,4 +1,4 @@
-#if defined LUDO_MAP
+##if defined LUDO_MAP
 	#endinput
 #endif
 #define LUDO_MAP
@@ -494,7 +494,9 @@ public OnGameModeInit()
 		SetColorDynamicLudo(ludo_objs_trumpets[i], i);
 
 		ludo_object = CreateObject(18850, ludo_map_cars_spawn[i][0], ludo_map_cars_spawn[i][1], -12.0+LUDO_NEW_Z, 0.0, 0.0, ludo_map_cars_spawn[i][2], LUDO_DISTANCE);
+		SetObjectMaterial(ludo_object, 0, 0, " ", " ", 0x00);
 		SetColorLudo(ludo_object, i, 1);
+		SetObjectMaterial(ludo_object, 3, 0, " ", " ", 0x00);
 		SetColorLudo(ludo_object, i, 5);
 
 		ludo_object = CreateDynamicObject(18783, ludo_map_finish[i][0], ludo_map_finish[i][1], -2.45140+LUDO_NEW_Z, 0.0, 0.0, ludo_map_finish[i][2], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
@@ -577,4 +579,3 @@ public OnGameModeInit()
 #if  defined ludo_map_OnGameModeInit
 	forward ludo_map_OnGameModeInit();
 #endif
- 
