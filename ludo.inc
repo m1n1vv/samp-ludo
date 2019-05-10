@@ -33,9 +33,12 @@ enum
 		uPlayerRoomID,
 		uPlayerNum,
 		uPlayerWorld,
-		uPlayerMove,
+		
+		uPlayerLifes,
+		uPlayerFinish,
 
 		uPlayerZones[MAX_LUDO_PLAYER_POINTS],
+		uPlayerHomeZone,
 		uIndexZone,
 
 		Float:uPos_x,
@@ -46,7 +49,6 @@ enum
 		uObjectsPoint[MAX_LUDO_PLAYER_POINTS],
 		uNewPointID,
 		uOldPointID,
-		uNumPointID,
 		uObjectsLine[MAX_LUDO_PLAYER_LINES],
 		uIndexObject,
 		uOldIndexObject
