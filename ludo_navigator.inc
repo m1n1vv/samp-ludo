@@ -268,7 +268,6 @@ stock LudoNavigation(playerid, pointsnum)
 		index,
 		index2,
 		index3,
-		index4,
 
 		player_way,
 		player_number,
@@ -281,9 +280,6 @@ stock LudoNavigation(playerid, pointsnum)
 	PlayerLudo[playerid][uOldPointID] += PlayerLudo[playerid][uNewPointID];
 	PlayerLudo[playerid][uNewPointID] = pointsnum;
 	PlayerLudo[playerid][uOldIndexObject] = PlayerLudo[playerid][uIndexObject];
-
-	if (PlayerLudo[playerid][uNumPointID] >= MAX_LUDO_NAVIGATOR_POINTS_P+MAX_LUDO_NAVIGATOR_POINTS)
-		return SendClientMessage(playerid, -1, !"Путь пройден");
 
 	player_number = PlayerLudo[playerid][uPlayerNum];
 	player_number--;
@@ -328,12 +324,53 @@ stock LudoNavigation(playerid, pointsnum)
 			LUDO_NAVIGATOR_ZONE_Z+LUDO_NEW_Z, 
 			0.0, 0.0, 0.0, 
 			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-			LUDO_DISTANCE, LUDO_DISTANCE);
+			LUDO_DISTANCE, LUDO_DISTANCE
+		);
 		SetColorDynamicLudo(PlayerLudo[playerid][uObjectsPoint][index_zone], player_number);
 	}
 	else
 	{
-		
+		index_pos_zone = player_way-1-MAX_LUDO_NAVIGATOR_POINTS;
+
+		if (index_pos_zone >= MAX_LUDO_NAVIGATOR_POINTS_P)
+			index_pos_zone = 6;
+
+		if (player_way >= MAX_LUDO_NAVIGATOR_POINTS+MAX_LUDO_NAVIGATOR_POINTS_P)
+		{
+			player_way = MAX_LUDO_NAVIGATOR_POINTS+MAX_LUDO_NAVIGATOR_POINTS_P;
+			PlayerLudo[playerid][uNewPointID] = player_way-PlayerLudo[playerid][uOldPointID];
+		}
+
+		if (index_pos_zone == MAX_LUDO_NAVIGATOR_POINTS_P-1)
+		{
+			SendClientMessage(playerid, -1, "Зона финиша");
+			
+			PlayerLudo[playerid][uPlayerHomeZone] = CreateDynamicPolygon(ludo_navigator_finish_zones[player_number], 
+				.worldid = PlayerLudo[playerid][uPlayerWorld], 
+				.interiorid = LUDO_INTERIOR, 
+				.playerid = -1
+			);
+		}
+		else
+		{
+			PlayerLudo[playerid][uPlayerZones][index_zone] = CreateDynamicSphere(
+				ludo_navigator_player_points[player_number][index_pos_zone][0], 
+				ludo_navigator_player_points[player_number][index_pos_zone][1], 
+				LUDO_NAVIGATOR_ZONE_Z+LUDO_NEW_Z, 
+				LUDO_NAVIGATOR_ZONE_SIZE, 
+				PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid
+			);
+		}
+
+		PlayerLudo[playerid][uObjectsPoint][index_zone] = CreateDynamicObject(19844, 
+			ludo_navigator_player_points[player_number][index_pos_zone][0], 
+			ludo_navigator_player_points[player_number][index_pos_zone][1], 
+			LUDO_NAVIGATOR_ZONE_Z+LUDO_NEW_Z, 
+			0.0, 0.0, 0.0, 
+			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+			LUDO_DISTANCE, LUDO_DISTANCE
+		);
+		WhiteColorLudo(PlayerLudo[playerid][uObjectsPoint][index_zone]);	
 	}
 
 	PlayerLudo[playerid][uIndexZone]++;
@@ -348,7 +385,8 @@ stock LudoNavigation(playerid, pointsnum)
 			0.0, 0.0, 
 			ludo_navigator_lines_start[player_number][0][3], 
 			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-			LUDO_DISTANCE, LUDO_DISTANCE);
+			LUDO_DISTANCE, LUDO_DISTANCE
+		);
 		SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][0], player_number);
 
 		PlayerLudo[playerid][uObjectsLine][1] = CreateDynamicObject(19366, 
@@ -358,7 +396,8 @@ stock LudoNavigation(playerid, pointsnum)
 			0.0,  0.0, 
 			ludo_navigator_lines_start[player_number][1][3], 
 			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-			LUDO_DISTANCE, LUDO_DISTANCE);
+			LUDO_DISTANCE, LUDO_DISTANCE
+		);
 		SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][1], player_number);
 		
 		PlayerLudo[playerid][uIndexObject] = 2;
@@ -366,17 +405,15 @@ stock LudoNavigation(playerid, pointsnum)
 
 	for (new i = PlayerLudo[playerid][uOldPointID]; i < player_way; i++)
 	{
-		if (PlayerLudo[playerid][uNumPointID] < MAX_LUDO_NAVIGATOR_POINTS)
+		if (i < MAX_LUDO_NAVIGATOR_POINTS)
 		{
 			if (i >= MAX_LUDO_NAVIGATOR_POINTS)
 				break;
 
-			PlayerLudo[playerid][uNumPointID]++;
-
 			//создание напрвления
 			index = PlayerLudo[playerid][uIndexObject];
-			index4 = index+player_index+player_warn-2;
-			index4 %= MAX_LUDO_NAVIGATOR_LINES+2;
+			index3 = index+player_index+player_warn-2;
+			index3 %= MAX_LUDO_NAVIGATOR_LINES+2;
 
 			switch (i)
 			{
@@ -384,44 +421,47 @@ stock LudoNavigation(playerid, pointsnum)
 				case 5, 6, 17, 18, 29, 30, 41, 42: //3 объекта
 				{
 					PlayerLudo[playerid][uObjectsLine][index] = CreateDynamicObject(19447, 
-						ludo_navigator_lines[index4][0], 
-						ludo_navigator_lines[index4][1], 
-						ludo_navigator_lines[index4][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index4][3], 
+						ludo_navigator_lines[index3][0], 
+						ludo_navigator_lines[index3][1], 
+						ludo_navigator_lines[index3][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index3][3], 
 						0.0, 
-						ludo_navigator_lines[index4][5], 
+						ludo_navigator_lines[index3][5], 
 						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-						LUDO_DISTANCE, LUDO_DISTANCE);
+						LUDO_DISTANCE, LUDO_DISTANCE
+					);
 					SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 					index++;
-					index4++;
-					index4 %= MAX_LUDO_NAVIGATOR_LINES+2;
+					index3++;
+					index3 %= MAX_LUDO_NAVIGATOR_LINES+2;
 
 					PlayerLudo[playerid][uObjectsLine][index] = CreateDynamicObject(19366, 
-						ludo_navigator_lines[index4][0], 
-						ludo_navigator_lines[index4][1], 
-						ludo_navigator_lines[index4][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index4][3], 
+						ludo_navigator_lines[index3][0], 
+						ludo_navigator_lines[index3][1], 
+						ludo_navigator_lines[index3][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index3][3], 
 						0.0, 
-						ludo_navigator_lines[index4][5], 
+						ludo_navigator_lines[index3][5], 
 						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-						LUDO_DISTANCE, LUDO_DISTANCE);
+						LUDO_DISTANCE, LUDO_DISTANCE
+					);
 					SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 					index++;
-					index4++;
-					index4 %= MAX_LUDO_NAVIGATOR_LINES+2;
+					index3++;
+					index3 %= MAX_LUDO_NAVIGATOR_LINES+2;
 
 					PlayerLudo[playerid][uObjectsLine][index] = CreateDynamicObject(19366, 
-						ludo_navigator_lines[index4][0], 
-						ludo_navigator_lines[index4][1], 
-						ludo_navigator_lines[index4][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index4][3], 
+						ludo_navigator_lines[index3][0], 
+						ludo_navigator_lines[index3][1], 
+						ludo_navigator_lines[index3][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index3][3], 
 						0.0, 
-						ludo_navigator_lines[index4][5], 
+						ludo_navigator_lines[index3][5], 
 						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-						LUDO_DISTANCE, LUDO_DISTANCE);
+						LUDO_DISTANCE, LUDO_DISTANCE
+					);
 					SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 					PlayerLudo[playerid][uIndexObject] += 3;
@@ -429,14 +469,15 @@ stock LudoNavigation(playerid, pointsnum)
 				default: //1 объект
 				{
 					PlayerLudo[playerid][uObjectsLine][index] = CreateDynamicObject(19378, 
-						ludo_navigator_lines[index4][0], 
-						ludo_navigator_lines[index4][1], 
-						ludo_navigator_lines[index4][2]+LUDO_NEW_Z, 
-						ludo_navigator_lines[index4][3], 
+						ludo_navigator_lines[index3][0], 
+						ludo_navigator_lines[index3][1], 
+						ludo_navigator_lines[index3][2]+LUDO_NEW_Z, 
+						ludo_navigator_lines[index3][3], 
 						0.0, 
-						ludo_navigator_lines[index4][5], 
+						ludo_navigator_lines[index3][5], 
 						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-						LUDO_DISTANCE, LUDO_DISTANCE);
+						LUDO_DISTANCE, LUDO_DISTANCE
+					);
 					SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 					PlayerLudo[playerid][uIndexObject]++;
@@ -445,26 +486,6 @@ stock LudoNavigation(playerid, pointsnum)
 		}
 		else
 		{
-			if (i >= MAX_LUDO_NAVIGATOR_POINTS_P+MAX_LUDO_NAVIGATOR_POINTS)
-			{
-				SendClientMessage(playerid, -1, !"Финиш");
-				break;
-			}
-
-			//создание точек на дорожке к дому
-			index2 = i-MAX_LUDO_NAVIGATOR_POINTS;
-
-			PlayerLudo[playerid][uObjectsPoint][i] = CreateDynamicObject(19844, 
-				ludo_navigator_player_points[player_number][index2][0], 
-				ludo_navigator_player_points[player_number][index2][1], 
-				LUDO_NAVIGATOR_ZONE_Z+LUDO_NEW_Z, 
-				0.0, 0.0, 0.0, 
-				PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-				LUDO_DISTANCE, LUDO_DISTANCE);
-			WhiteColorLudo(PlayerLudo[playerid][uObjectsPoint][i]);
-
-			PlayerLudo[playerid][uNumPointID]++;
-
 			//создание напрвления
 			index = PlayerLudo[playerid][uIndexObject];
 
@@ -477,7 +498,8 @@ stock LudoNavigation(playerid, pointsnum)
 					0.0, 0.0, 
 					ludo_navigator_lines_finish_1[player_number][0][5], 
 					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-					LUDO_DISTANCE, LUDO_DISTANCE);
+					LUDO_DISTANCE, LUDO_DISTANCE
+				);
 				SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 				index++;
@@ -488,7 +510,9 @@ stock LudoNavigation(playerid, pointsnum)
 					ludo_navigator_lines_finish_1[player_number][1][2]+LUDO_NEW_Z, 
 						0.0, 0.0, 
 					ludo_navigator_lines_finish_1[player_number][1][5], 
-					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, LUDO_DISTANCE, LUDO_DISTANCE);
+					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+					LUDO_DISTANCE, LUDO_DISTANCE
+				);
 				SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 				index++;
@@ -500,7 +524,8 @@ stock LudoNavigation(playerid, pointsnum)
 					0.0, 0.0, 
 					ludo_navigator_lines_finish_1[player_number][2][5], 
 					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-					LUDO_DISTANCE, LUDO_DISTANCE);
+					LUDO_DISTANCE, LUDO_DISTANCE
+				);
 				WhiteColorLudo(PlayerLudo[playerid][uObjectsLine][index]);
 
 				index++;
@@ -512,32 +537,28 @@ stock LudoNavigation(playerid, pointsnum)
 					0.0, 0.0, 
 					ludo_navigator_lines_finish_1[player_number][3][5], 
 					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-					LUDO_DISTANCE, LUDO_DISTANCE);
+					LUDO_DISTANCE, LUDO_DISTANCE
+				);
 				WhiteColorLudo(PlayerLudo[playerid][uObjectsLine][index]);
 
 				PlayerLudo[playerid][uIndexObject] += 4;
 			}
 			else
 			{
-				index3 = i-MAX_LUDO_NAVIGATOR_POINTS-1;
+				index2 = i-MAX_LUDO_NAVIGATOR_POINTS-1;
 
 				PlayerLudo[playerid][uObjectsLine][index] = CreateDynamicObject(19378, 
-					ludo_navigator_lines_finish_2[player_number][index3][0], 
-					ludo_navigator_lines_finish_2[player_number][index3][1], 
-					ludo_navigator_lines_finish_2[player_number][index3][2]+LUDO_NEW_Z, 
+					ludo_navigator_lines_finish_2[player_number][index2][0], 
+					ludo_navigator_lines_finish_2[player_number][index2][1], 
+					ludo_navigator_lines_finish_2[player_number][index2][2]+LUDO_NEW_Z, 
 					90.0, 0.0, 
-					ludo_navigator_lines_finish_2[player_number][index3][3], 
+					ludo_navigator_lines_finish_2[player_number][index2][3], 
 					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
-					LUDO_DISTANCE, LUDO_DISTANCE);
+					LUDO_DISTANCE, LUDO_DISTANCE
+				);
 				WhiteColorLudo(PlayerLudo[playerid][uObjectsLine][index]);
 
 				PlayerLudo[playerid][uIndexObject]++;
-			}
-
-			if (i == MAX_LUDO_NAVIGATOR_POINTS_P+MAX_LUDO_NAVIGATOR_POINTS-1)
-			{
-				SendClientMessage(playerid, -1, !"Финиш");
-				break;
 			}
 		}
 	}
@@ -549,7 +570,7 @@ stock LudoNavigation(playerid, pointsnum)
 
 stock LudoDeNavigation(playerid)
 {
-	for (new i = 0, j = PlayerLudo[playerid][uNewPointID]+PlayerLudo[playerid][uOldPointID]; i < j; i++)
+	for (new i = 0, j = PlayerLudo[playerid][uIndexZone]; i < j; i++)
 	{
 		BlackColorLudo(PlayerLudo[playerid][uObjectsPoint][i]);
 	}
@@ -564,18 +585,62 @@ stock LudoDeNavigation(playerid)
 	return 1;
 }
 
+
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
 	new 
 		index_zone = PlayerLudo[playerid][uIndexZone]-1;
 
-	if (areaid == PlayerLudo[playerid][uPlayerZones][index_zone])
+	if (PlayerLudo[playerid][uIndexZone] != 0)
 	{
-		DestroyDynamicArea(PlayerLudo[playerid][uPlayerZones][index_zone]);
-		LudoDeNavigation(playerid);
+		if (areaid == PlayerLudo[playerid][uPlayerZones][index_zone])
+		{
+			DestroyDynamicArea(PlayerLudo[playerid][uPlayerZones][index_zone]);
+			PlayerLudo[playerid][uPlayerZones][index_zone] = 0;
 
-		GetPlayerPos(playerid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
-		GetPlayerFacingAngle(playerid, PlayerLudo[playerid][uAngle]);
+			LudoDeNavigation(playerid);
+
+			GetPlayerPos(playerid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
+			GetPlayerFacingAngle(playerid, PlayerLudo[playerid][uAngle]);
+		}
+		else if (areaid == PlayerLudo[playerid][uPlayerHomeZone])
+		{
+			DestroyDynamicArea(PlayerLudo[playerid][uPlayerHomeZone]);
+			PlayerLudo[playerid][uPlayerHomeZone] = 0;
+
+			PlayerLudo[playerid][uPlayerLifes]--;
+			PlayerLudo[playerid][uPlayerFinish]++;
+
+			for (new i = 0, j = PlayerLudo[playerid][uIndexZone]; i < j; i++)
+			{
+				DestroyDynamicObject(PlayerLudo[playerid][uObjectsPoint][i]);
+				PlayerLudo[playerid][uObjectsPoint][i] = 0;
+			}
+
+			for (new i = 0, j = PlayerLudo[playerid][uIndexObject]; i < j; i++)
+			{
+				DestroyDynamicObject(PlayerLudo[playerid][uObjectsLine][i]);
+				PlayerLudo[playerid][uObjectsLine][i] = 0;
+
+				for (new i = 0, j = PlayerLudo[playerid][uIndexZone]; i < j; i++)
+				{
+					DestroyDynamicObject(PlayerLudo[playerid][uObjectsPoint][i]);
+					PlayerLudo[playerid][uObjectsPoint][i] = 0;
+				}
+
+				for (new i = 0, j = PlayerLudo[playerid][uIndexObject]; i < j; i++)
+				{
+					DestroyDynamicObject(PlayerLudo[playerid][uObjectsLine][i]);
+					PlayerLudo[playerid][uObjectsLine][i] = 0;
+				}
+
+				PlayerLudo[playerid][uOldPointID] =
+				PlayerLudo[playerid][uNewPointID] =
+				PlayerLudo[playerid][uIndexZone] =
+				PlayerLudo[playerid][uIndexObject] =
+				PlayerLudo[playerid][uOldIndexObject] = 0;
+			}
+		}
 	}
 	
 	#if defined ludo_n_OnPlayerEnterDynamicArea
