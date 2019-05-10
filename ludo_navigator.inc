@@ -348,7 +348,7 @@ stock LudoNavigation(playerid, pointsnum)
 			PlayerLudo[playerid][uPlayerHomeZone] = CreateDynamicPolygon(ludo_navigator_finish_zones[player_number], 
 				.worldid = PlayerLudo[playerid][uPlayerWorld], 
 				.interiorid = LUDO_INTERIOR, 
-				.playerid = -1
+				.playerid = playerid
 			);
 		}
 		else
