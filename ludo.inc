@@ -12,7 +12,7 @@
 #endif
 
 #if !defined LudoRandom
-	#define LudoRandom					(random(6)+1)
+	#define LudoRandom				(random(6)+1)
 #endif
 
 const
