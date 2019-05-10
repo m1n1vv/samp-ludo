@@ -12,8 +12,8 @@ const
 	MAX_LUDO_NAVIGATOR_LINES_FINISH = 6;
 
 const
-	Float:LUDO_ZONE_SIZE = 4.0,
-	Float:LUDO_ZONE_Z = 0.08240;
+	Float:LUDO_NAVIGATOR_ZONE_SIZE = 4.0,
+	Float:LUDO_NAVIGATOR_ZONE_Z = 0.08240;
 
 static const
 	Float:ludo_navigator_points[MAX_LUDO_NAVIGATOR_POINTS+1][] = //19844
@@ -317,15 +317,15 @@ stock LudoNavigation(playerid, pointsnum)
 		PlayerLudo[playerid][uPlayerZones][index_zone] = CreateDynamicSphere(
 			ludo_navigator_points[index_pos_zone][0], 
 			ludo_navigator_points[index_pos_zone][1], 
-			LUDO_ZONE_Z+LUDO_NEW_Z, 
-			LUDO_ZONE_SIZE, 
+			LUDO_NAVIGATOR_ZONE_Z+LUDO_NEW_Z, 
+			LUDO_NAVIGATOR_ZONE_SIZE, 
 			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid
 		);
 
 		PlayerLudo[playerid][uObjectsPoint][index_zone] = CreateDynamicObject(19844, 
 			ludo_navigator_points[index_pos_zone][0], 
 			ludo_navigator_points[index_pos_zone][1], 
-			LUDO_ZONE_Z+LUDO_NEW_Z, 
+			LUDO_NAVIGATOR_ZONE_Z+LUDO_NEW_Z, 
 			0.0, 0.0, 0.0, 
 			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 			LUDO_DISTANCE, LUDO_DISTANCE);
@@ -457,7 +457,7 @@ stock LudoNavigation(playerid, pointsnum)
 			PlayerLudo[playerid][uObjectsPoint][i] = CreateDynamicObject(19844, 
 				ludo_navigator_player_points[player_number][index2][0], 
 				ludo_navigator_player_points[player_number][index2][1], 
-				LUDO_ZONE_Z+LUDO_NEW_Z, 
+				LUDO_NAVIGATOR_ZONE_Z+LUDO_NEW_Z, 
 				0.0, 0.0, 0.0, 
 				PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 				LUDO_DISTANCE, LUDO_DISTANCE);
@@ -563,7 +563,6 @@ stock LudoDeNavigation(playerid)
 
 	return 1;
 }
-
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
