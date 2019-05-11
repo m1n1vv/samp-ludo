@@ -34,7 +34,7 @@ enum
 		uPlayerNum,
 		uPlayerWorld,
 		
-		uPlayerLifes,
+		uPlayerLives,
 		uPlayerFinish,
 
 		uPlayerZones[MAX_LUDO_PLAYER_POINTS],
