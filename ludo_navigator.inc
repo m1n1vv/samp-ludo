@@ -608,7 +608,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 			DestroyDynamicArea(PlayerLudo[playerid][uPlayerHomeZone]);
 			PlayerLudo[playerid][uPlayerHomeZone] = 0;
 
-			PlayerLudo[playerid][uPlayerLifes]--;
+			PlayerLudo[playerid][uPlayerLives]--;
 			PlayerLudo[playerid][uPlayerFinish]++;
 
 			for (new i = 0, j = PlayerLudo[playerid][uIndexZone]; i < j; i++)
