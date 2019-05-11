@@ -622,16 +622,16 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 				DestroyDynamicObject(PlayerLudo[playerid][uObjectsLine][i]);
 				PlayerLudo[playerid][uObjectsLine][i] = 0;
 
-				for (new i = 0, j = PlayerLudo[playerid][uIndexZone]; i < j; i++)
+				for (new n = 0, m = PlayerLudo[playerid][uIndexZone]; n < m; n++)
 				{
-					DestroyDynamicObject(PlayerLudo[playerid][uObjectsPoint][i]);
-					PlayerLudo[playerid][uObjectsPoint][i] = 0;
+					DestroyDynamicObject(PlayerLudo[playerid][uObjectsPoint][n]);
+					PlayerLudo[playerid][uObjectsPoint][n] = 0;
 				}
 
-				for (new i = 0, j = PlayerLudo[playerid][uIndexObject]; i < j; i++)
+				for (new n = 0, m = PlayerLudo[playerid][uIndexObject]; n < m; n++)
 				{
-					DestroyDynamicObject(PlayerLudo[playerid][uObjectsLine][i]);
-					PlayerLudo[playerid][uObjectsLine][i] = 0;
+					DestroyDynamicObject(PlayerLudo[playerid][uObjectsLine][n]);
+					PlayerLudo[playerid][uObjectsLine][n] = 0;
 				}
 
 				PlayerLudo[playerid][uOldPointID] =
