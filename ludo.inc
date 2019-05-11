@@ -40,6 +40,8 @@ enum
 		uPlayerZones[MAX_LUDO_PLAYER_POINTS],
 		uPlayerHomeZone,
 		uIndexZone,
+		
+		uPlayerVehicles[MAX_LUDO_NUMBER_OF_LIVES],
 
 		Float:uPos_x,
 		Float:uPos_y,
