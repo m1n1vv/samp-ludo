@@ -165,33 +165,23 @@ stock LudoPlayerConnectToRoom(playerid, roomid)
 	LudoInfo[roomid-1][gNumPlayers]++;
 	PlayerLudo[playerid][uPlayerNum] = LudoInfo[roomid-1][gNumPlayers];
 				
+	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z, 0.0, 0, 0, 0, 0, 0, 0);
+
 	TogglePlayerSpectating(playerid, true);
 	AttachCameraToObject(playerid, ludo_camera_object);
-	
-	SetSpawnInfo(playerid, 0, 0, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z, 0.0, 0, 0, 0, 0, 0, 0); // SetSpawnInit
-	PlayerLudo[playerid][uPlayerTimer] = SetTimerEx("LudoPlayerSpawnTimer", 1000, true, "i", playerid);
+
+	SetTimerEx(!"LudoPlayerSpawnTimer", 1000, false, "i", playerid);
 	return 1;
 }
 
 forward LudoPlayerSpawnTimer(playerid);
 public LudoPlayerSpawnTimer(playerid)
 {
-	new str[10];
-	if (PlayerLudo[playerid][uPlayerTimerSec] == 0)
-	{
-		TogglePlayerSpectating(playerid, false);
-		return KillTimer(PlayerLudo[playerid][uPlayerTimer]);
-	}
+	CancelEdit(playerid);
+	TogglePlayerSpectating(playerid, false);
 
-	format(str, sizeof str, "sec: %i", PlayerLudo[playerid][uPlayerTimerSec]);
-	SendClientMessage(playerid, -1, str);
-
-	PlayerLudo[playerid][uPlayerTimerSec]--;
 	return 1;
 }
 
 stock SetColorLudo(objectid, playernum, objectslot = 0)
-	return SetObjectMaterial(objectid, objectslot, ludo_map_colors[playernum][lm_id], ludo_map_colors[playernum][lm_lib], ludo_map_colors[playernum][lm_texture], 0xFFFFFFFF);
-	
-stock SetColorDynamicLudo(objectid, playernum, objectslot = 0)
 	return SetDynamicObjectMaterial(objectid, objectslot, ludo_map_colors[playernum][lm_id], ludo_map_colors[playernum][lm_lib], ludo_map_colors[playernum][lm_texture], 0xFFFFFFFF);
