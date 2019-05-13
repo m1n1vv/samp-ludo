@@ -169,8 +169,8 @@ stock LudoPlayerConnectToRoom(playerid, roomid)
 	PlayerLudo[playerid][uPlayerNum] = LudoInfo[roomid-1][gNumPlayers];
 	
 	GetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z]);
-	GetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);
-	GetPlayerInterior(playerid, PlayerLudo[playerid][uOldInterior]);
+	PlayerLudo[playerid][uOldWorld] = GetPlayerVirtualWorld(playerid);
+	PlayerLudo[playerid][uOldInterior] = GetPlayerInterior(playerid);
 	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z, 0.0, 0, 0, 0, 0, 0, 0);
 
 	TogglePlayerSpectating(playerid, true);
