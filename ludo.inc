@@ -15,6 +15,11 @@
 	#define LudoRandom				(random(6)+1)
 #endif
 
+#if !defined LUDO_TITLE
+	#define LUDO_TITLE				"{FF9900}Ludo:{FFFFFF}"
+#endif
+
+
 const
 	MAX_LUDO_GAMES = 100,
 	MAX_LUDO_PLAYERS = 4,
@@ -87,7 +92,7 @@ new const
 new
 	MAX_LUDO_CREATE_GAMES = 10,
 	PlayerLudo[MAX_PLAYERS][ludo_player_info],
-	LudoInfo[ludo_game_info][MAX_LUDO_GAMES];
+	LudoInfo[MAX_LUDO_GAMES][ludo_game_info];
 
 static
 	ludo_main_zone;
@@ -143,6 +148,27 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 #if defined ludo_OnPlayerLeaveDynamicArea
 	forward ludo_OnPlayerLeaveDynamicArea(playerid, areaid);
 #endif
+
+stock LudoPlayerConnectToRoom(playerid, roomid)
+{
+	static const
+		str[] = ""#LUDO_TITLE" Вы подключиль к %i-й комнате (%i)";
+
+	static
+		string[sizeof str + 3 + 10 - 2*2];
+
+	format(string, sizeof string, str, roomid, roomid+LUDO_WORLD);
+	SendClientMessage(playerid, -1, string);
+
+	PlayerLudo[playerid][uPlayerWorld] = roomid+LUDO_WORLD;
+	PlayerLudo[playerid][uPlayerRoomID] = roomid;
+	LudoInfo[roomid-1][gNumPlayers]++;
+	PlayerLudo[playerid][uPlayerNum] = LudoInfo[roomid-1][gNumPlayers];
+				
+	SetPlayerVirtualWorld(playerid, roomid+LUDO_WORLD);
+	SetPlayerInterior(playerid, LUDO_INTERIOR);
+	return 1;
+}
 
 stock SetColorLudo(objectid, playernum, objectslot = 0)
 	return SetObjectMaterial(objectid, objectslot, ludo_map_colors[playernum][lm_id], ludo_map_colors[playernum][lm_lib], ludo_map_colors[playernum][lm_texture], 0xFFFFFFFF);
