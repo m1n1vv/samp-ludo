@@ -19,7 +19,6 @@
 	#define LUDO_TITLE				"{FF9900}Ludo:{FFFFFF}"
 #endif
 
-
 const
 	MAX_LUDO_GAMES = 100,
 	MAX_LUDO_PLAYERS = 4,
@@ -31,7 +30,6 @@ const
 	LUDO_WORLD = 10000,
 	LUDO_INTERIOR = 0,
 	Float:LUDO_MAIN_ZONE_SIZE = 100.0;
-
 
 enum
 	ludo_game_info
