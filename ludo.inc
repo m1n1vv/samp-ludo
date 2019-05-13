@@ -12,12 +12,12 @@
 #endif
 
 #if !defined LudoRandom
-	#define LudoRandom					(random(6)+1)
+	#define LudoRandom				(random(6)+1)
 #endif
 
 #if !defined LUDO_TITLE
-	#define LUDO_TITLE					"{FF9900}Ludo:{FFFFFF}"
-	//#define LUDO_TITLE					"{4CAA38}L{BD1E1E}U{E4D310}D{179CD8}O{FFFFFF}"
+	#define LUDO_TITLE				"{FF9900}Ludo:{FFFFFF}"
+	//#define LUDO_TITLE				"{4CAA38}L{BD1E1E}U{E4D310}D{179CD8}O{FFFFFF}"
 #endif
 
 const
