@@ -536,29 +536,28 @@ public OnGameModeInit()
 	new
 		ludo_object;
 
-	ludo_camera_object = CreateDynamicObject(19477, 0.0, 0.0, LUDO_MAP_CAMERA_Z+LUDO_MAP_NEW_Z, 0.0, 0.0, 0.0, -1, LUDO_INTERIOR, -1, LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE);
+	ludo_camera_object = CreateObject(19477, 0.0, 0.0, LUDO_MAP_CAMERA_Z+LUDO_MAP_NEW_Z, 0.0, 0.0, 0.0, LUDO_MAP_DISTANCE);
 
-	ludo_object = CreateObject(19128, 0.0, 0.0, 0.04125+LUDO_MAP_NEW_Z, 0.0, 0.0, 0.0, LUDO_MAP_DISTANCE);
-	SetObjectMaterial(ludo_object, 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
+	ludo_object = CreateDynamicObject(19128, 0.0, 0.0, 0.04125+LUDO_MAP_NEW_Z, 0.0, 0.0, 0.0, -1, LUDO_INTERIOR, -1, LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE);
+	SetDynamicObjectMaterial(ludo_object, 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
 
 	for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
 	{
 		ludo_objs_trumpets[i] = CreateDynamicObject(18987, ludo_map_trumpets[i][0], ludo_map_trumpets[i][1], 11.9768+LUDO_MAP_NEW_Z, 0.0, 0.0, 0.0, -1, LUDO_INTERIOR, -1, LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE);
-		SetColorDynamicLudo(ludo_objs_trumpets[i], i);
-		SetColorDynamicLudo(ludo_objs_trumpets[i], i, 1);
+		SetColorLudo(ludo_objs_trumpets[i], i);
+		SetColorLudo(ludo_objs_trumpets[i], i, 1);
 
-		ludo_object = CreateObject(18850, ludo_map_cars_spawn[i][0], ludo_map_cars_spawn[i][1], -11.98+LUDO_MAP_NEW_Z+LUDO_MAP_CARS_SPAWN_Z, 0.0, 0.0, ludo_map_cars_spawn[i][2], LUDO_MAP_DISTANCE);
-		SetObjectMaterial(ludo_object, 0, 0, " ", " ", 0x00);
+		ludo_object = CreateDynamicObject(18850, ludo_map_cars_spawn[i][0], ludo_map_cars_spawn[i][1], -11.98+LUDO_MAP_NEW_Z+LUDO_MAP_CARS_SPAWN_Z, 0.0, 0.0, ludo_map_cars_spawn[i][2], -1, LUDO_INTERIOR, -1, LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE);
+		SetDynamicObjectMaterial(ludo_object, 0, 0, " ", " ", 0x00);
 		SetColorLudo(ludo_object, i, 1);
-		SetObjectMaterial(ludo_object, 2, 0, " ", " ", 0x00);
-		SetObjectMaterial(ludo_object, 3, 0, " ", " ", 0x00);
-		SetObjectMaterial(ludo_object, 4, 0, " ", " ", 0x00);
-		SetObjectMaterial(ludo_object, 5, 0, " ", " ", 0x00);
-		//SetColorLudo(ludo_object, i, 5);
-		SetObjectMaterial(ludo_object, 6, 0, " ", " ", 0x00);
+		SetDynamicObjectMaterial(ludo_object, 2, 0, " ", " ", 0x00);
+		SetDynamicObjectMaterial(ludo_object, 3, 0, " ", " ", 0x00);
+		SetDynamicObjectMaterial(ludo_object, 4, 0, " ", " ", 0x00);
+		SetDynamicObjectMaterial(ludo_object, 5, 0, " ", " ", 0x00);
+		SetDynamicObjectMaterial(ludo_object, 6, 0, " ", " ", 0x00);
 
 		ludo_object = CreateDynamicObject(18783, ludo_map_finish[i][0], ludo_map_finish[i][1], -2.45140+LUDO_MAP_NEW_Z, 0.0, 0.0, ludo_map_finish[i][2], -1, LUDO_INTERIOR, -1, LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE);
-		SetColorDynamicLudo(ludo_object, i, 1);
+		SetColorLudo(ludo_object, i, 1);
 
 		for (new j = 0; j < MAX_LUDO_OBJECTS_PLAYER_BLOCKS; j++)
 		{
@@ -581,7 +580,7 @@ public OnGameModeInit()
 			}
 			
 			ludo_object = CreateDynamicObject(19381,ludo_map_player[i][j][0], ludo_map_player[i][j][1], 0.0+LUDO_MAP_NEW_Z, 0.0, 90.0, ludo_map_player[i][j][5], -1, LUDO_INTERIOR, -1, LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE);
-			SetColorDynamicLudo(ludo_object, i);
+			SetColorLudo(ludo_object, i);
 		}
 
 		for (new u = 0; u < MAX_LUDO_OBJECTS_CARS_POLYGON; u++)
