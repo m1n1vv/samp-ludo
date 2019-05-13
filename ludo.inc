@@ -16,7 +16,7 @@
 #endif
 
 const
-	MAX_LUDO_GAMES = 1,
+	MAX_LUDO_GAMES = 100,
 	MAX_LUDO_PLAYERS = 4,
 	MAX_LUDO_NUMBER_OF_LIVES = 4,
 	MAX_LUDO_PLAYER_POINTS = 54,
@@ -27,20 +27,31 @@ const
 	LUDO_INTERIOR = 0,
 	Float:LUDO_MAIN_ZONE_SIZE = 100.0;
 
+
+enum
+	ludo_game_info
+	{
+		gAccessToRoom,
+		gStartGame,
+		gNumPlayers
+	}
+
 enum
 	ludo_player_info
 	{
+		uPlayerAccessRoom,
+
 		uPlayerRoomID,
 		uPlayerNum,
 		uPlayerWorld,
-		
+
 		uPlayerLives,
 		uPlayerFinish,
 
 		uPlayerZones[MAX_LUDO_PLAYER_POINTS],
 		uPlayerHomeZone,
 		uIndexZone,
-		
+
 		uPlayerVehicles[MAX_LUDO_NUMBER_OF_LIVES],
 
 		Float:uPos_x,
@@ -74,12 +85,15 @@ new const
 	};
 
 new
-	PlayerLudo[MAX_PLAYERS][ludo_player_info];
+	MAX_LUDO_CREATE_GAMES = 10,
+	PlayerLudo[MAX_PLAYERS][ludo_player_info],
+	LudoInfo[ludo_game_info][MAX_LUDO_GAMES];
 
 static
 	ludo_main_zone;
 
 #include "../ludo/ludo_map.inc"
+#include "../ludo/ludo_dialog.inc"
 #include "../ludo/ludo_vehicles.inc"
 #include "../ludo/ludo_navigator.inc"
 
