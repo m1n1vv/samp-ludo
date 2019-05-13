@@ -41,6 +41,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			SendClientMessage(playerid, -1, string);
 
 			PlayerLudo[playerid][uPlayerWorld] = room_id+LUDO_WORLD;
+			PlayerLudo[playerid][uPlayerRoomID] = room_id;
+			
 			SetPlayerVirtualWorld(playerid, room_id+LUDO_WORLD);
 			SetPlayerInterior(playerid, LUDO_INTERIOR);
 		}
@@ -74,6 +76,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessage(playerid, -1, !"Комната создана");
 
 				PlayerLudo[playerid][uPlayerWorld] = MAX_LUDO_CREATE_GAMES+LUDO_WORLD;
+				PlayerLudo[playerid][uPlayerRoomID] = MAX_LUDO_CREATE_GAMES;
+				
 				SetPlayerVirtualWorld(playerid, MAX_LUDO_CREATE_GAMES+LUDO_WORLD);
 				SetPlayerInterior(playerid, LUDO_INTERIOR);
 
