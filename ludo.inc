@@ -210,6 +210,11 @@ stock LudoPlayerExitFromRoom(playerid)
 		PlayerLudo[playerid][uObjectsLine][i] = 0;
 	}
 
+	SetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);
+	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z], 0.0, 0, 0, 0, 0, 0, 0);
+	SpawnPlayer(playerid);
+	SetCameraBehindPlayer(playerid);
+
 	PlayerLudo[playerid][uPlayerRoomID] =
 	PlayerLudo[playerid][uPlayerNum] =
 	PlayerLudo[playerid][uPlayerWorld] =
@@ -220,21 +225,16 @@ stock LudoPlayerExitFromRoom(playerid)
 	PlayerLudo[playerid][uIndexZone] =
 	PlayerLudo[playerid][uPlayerHomeZone] =
 	PlayerLudo[playerid][uIndexObject] =
-	PlayerLudo[playerid][uOldIndexObject] = 0;
+	PlayerLudo[playerid][uOldIndexObject] =
+	PlayerLudo[playerid][uOldWorld] = 0;
+	
+	PlayerLudo[playerid][uOldPos_x] = 
+	PlayerLudo[playerid][uOldPos_y] = 
+	PlayerLudo[playerid][uOldPos_z] =
 	PlayerLudo[playerid][uPos_x] = 
 	PlayerLudo[playerid][uPos_y] = 
 	PlayerLudo[playerid][uPos_z] = 
 	PlayerLudo[playerid][uAngle] = 0.0;
-
-	SetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);
-	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z], 0.0, 0, 0, 0, 0, 0, 0);
-	SpawnPlayer(playerid);
-	SetCameraBehindPlayer(playerid);
-
-	PlayerLudo[playerid][uOldPos_x] = 
-	PlayerLudo[playerid][uOldPos_y] = 
-	PlayerLudo[playerid][uOldPos_z] = 0.0;
-	PlayerLudo[playerid][uOldWorld] = 0;
 
 	return 1;
 }
