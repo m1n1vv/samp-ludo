@@ -165,8 +165,30 @@ stock LudoPlayerConnectToRoom(playerid, roomid)
 	LudoInfo[roomid-1][gNumPlayers]++;
 	PlayerLudo[playerid][uPlayerNum] = LudoInfo[roomid-1][gNumPlayers];
 				
-	SetPlayerVirtualWorld(playerid, roomid+LUDO_WORLD);
-	SetPlayerInterior(playerid, LUDO_INTERIOR);
+	TogglePlayerSpectating(playerid, true);
+	AttachCameraToObject(playerid, ludo_camera_object);
+
+	PlayerLudo[playerid][uPlayerTimer] = SetTimerEx("LudoPlayerSpawnTimer", 1000, true, "i", playerid);
+	return 1;
+}
+
+forward LudoPlayerSpawnTimer(playerid);
+public LudoPlayerSpawnTimer(playerid)
+{
+	new str[10];
+	if (PlayerLudo[playerid][uPlayerTimerSec] == 0)
+	{
+		TogglePlayerSpectating(playerid, false);
+		SetPlayerPos(playerid, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z);
+		return KillTimer(PlayerLudo[playerid][uPlayerTimer]);
+	}
+
+	format(str, sizeof str, "sec: %i", PlayerLudo[playerid][uPlayerTimerSec]);
+	SendClientMessage(playerid, -1, str);
+
+	PlayerLudo[playerid][uPlayerTimerSec]--;
+
+
 	return 1;
 }
 
