@@ -169,7 +169,8 @@ stock LudoPlayerConnectToRoom(playerid, roomid)
 	PlayerLudo[playerid][uPlayerNum] = LudoInfo[roomid-1][gNumPlayers];
 	
 	GetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z]);
-	GetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);			
+	GetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);
+	GetPlayerInterior(playerid, PlayerLudo[playerid][uOldInterior]);
 	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z, 0.0, 0, 0, 0, 0, 0, 0);
 
 	TogglePlayerSpectating(playerid, true);
@@ -211,6 +212,7 @@ stock LudoPlayerExitFromRoom(playerid)
 	}
 
 	SetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);
+	SetPlayerInterior(playerid, PlayerLudo[playerid][uOldInterior]);
 	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z], 0.0, 0, 0, 0, 0, 0, 0);
 	SpawnPlayer(playerid);
 	SetCameraBehindPlayer(playerid);
@@ -226,7 +228,8 @@ stock LudoPlayerExitFromRoom(playerid)
 	PlayerLudo[playerid][uPlayerHomeZone] =
 	PlayerLudo[playerid][uIndexObject] =
 	PlayerLudo[playerid][uOldIndexObject] =
-	PlayerLudo[playerid][uOldWorld] = 0;
+	PlayerLudo[playerid][uOldWorld] =
+	PlayerLudo[playerid][uOldInterior] = 0;
 	
 	PlayerLudo[playerid][uOldPos_x] = 
 	PlayerLudo[playerid][uOldPos_y] = 
