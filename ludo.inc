@@ -12,11 +12,12 @@
 #endif
 
 #if !defined LudoRandom
-	#define LudoRandom				(random(6)+1)
+	#define LudoRandom					(random(6)+1)
 #endif
 
 #if !defined LUDO_TITLE
-	#define LUDO_TITLE				"{FF9900}Ludo:{FFFFFF}"
+	#define LUDO_TITLE					"{FF9900}Ludo:{FFFFFF}"
+	//#define LUDO_TITLE					"{4CAA38}L{BD1E1E}U{E4D310}D{179CD8}O{FFFFFF}"
 #endif
 
 const
@@ -31,6 +32,7 @@ const
 	LUDO_INTERIOR = 0,
 	Float:LUDO_MAIN_ZONE_SIZE = 100.0;
 
+
 enum
 	ludo_game_info
 	{
@@ -42,30 +44,30 @@ enum
 enum
 	ludo_player_info
 	{
-		uPlayerAccessRoom,
+		uAccessRoom,
+		uRoomID,
+		uNumber,
+		uLives,
+		uFinish,
 
-		uPlayerRoomID,
-		uPlayerNum,
-		uPlayerWorld,
+		uWorld,
+		uOldWorld,
+		#if LUDO_INTERIOR != 0
+		uOldInterior,
+		#endif
 
-		uPlayerLives,
-		uPlayerFinish,
-
-		uPlayerZones[MAX_LUDO_PLAYER_POINTS],
-		uPlayerHomeZone,
-		uIndexZone,
-
-		uPlayerVehicles[MAX_LUDO_NUMBER_OF_LIVES],
-		
 		Float:uOldPos_x,
 		Float:uOldPos_y,
 		Float:uOldPos_z,
-		uOldWorld,
-
 		Float:uPos_x,
 		Float:uPos_y,
 		Float:uPos_z,
 		Float:uAngle,
+
+		uZones[MAX_LUDO_PLAYER_POINTS],
+		uHomeZone,
+		uIndexZone,
+		uVehicles[MAX_LUDO_NUMBER_OF_LIVES],
 
 		uObjectsPoint[MAX_LUDO_PLAYER_POINTS],
 		uNewPointID,
@@ -101,6 +103,7 @@ static
 	ludo_main_zone;
 
 #include "../ludo/ludo_map.inc"
+#include "../ludo/ludo_enter_exit.inc"
 #include "../ludo/ludo_dialogs.inc"
 #include "../ludo/ludo_vehicles.inc"
 #include "../ludo/ludo_navigator.inc"
@@ -130,8 +133,20 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
 	if (areaid == ludo_main_zone)
 	{
-		SetPlayerPos(playerid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
-		SetPlayerFacingAngle(playerid, PlayerLudo[playerid][uAngle]);
+		if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+		{
+			new
+				vehicleid = GetPlayerVehicleID(playerid);
+
+			SetVehiclePos(vehicleid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
+			SetVehicleZAngle(vehicleid, PlayerLudo[playerid][uAngle]);
+		}
+		else
+		{
+			SetPlayerPos(playerid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
+			SetPlayerFacingAngle(playerid, PlayerLudo[playerid][uAngle]);
+		}
+		
 		return 1;
 	}
 
@@ -151,96 +166,6 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 #if defined ludo_OnPlayerLeaveDynamicArea
 	forward ludo_OnPlayerLeaveDynamicArea(playerid, areaid);
 #endif
-
-stock LudoPlayerConnectToRoom(playerid, roomid)
-{
-	static const
-		str[] = ""#LUDO_TITLE" Вы подключиль к %i-й комнате (%i)";
-
-	static
-		string[sizeof str + 3 + 10 - 2*2];
-
-	format(string, sizeof string, str, roomid, roomid+LUDO_WORLD);
-	SendClientMessage(playerid, -1, string);
-
-	PlayerLudo[playerid][uPlayerWorld] = roomid+LUDO_WORLD;
-	PlayerLudo[playerid][uPlayerRoomID] = roomid;
-	LudoInfo[roomid-1][gNumPlayers]++;
-	PlayerLudo[playerid][uPlayerNum] = LudoInfo[roomid-1][gNumPlayers];
-	
-	GetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z]);
-	PlayerLudo[playerid][uOldWorld] = GetPlayerVirtualWorld(playerid);
-	PlayerLudo[playerid][uOldInterior] = GetPlayerInterior(playerid);
-	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z, 0.0, 0, 0, 0, 0, 0, 0);
-
-	TogglePlayerSpectating(playerid, true);
-	AttachCameraToObject(playerid, ludo_camera_object);
-
-	SetTimerEx(!"LudoPlayerSpawnTimer", 1000, false, "i", playerid);
-	return 1;
-}
-
-forward LudoPlayerSpawnTimer(playerid);
-public LudoPlayerSpawnTimer(playerid)
-{
-	CancelEdit(playerid);
-	TogglePlayerSpectating(playerid, false);
-
-	return 1;
-}
-
-stock LudoPlayerExitFromRoom(playerid)
-{
-	for (new i = 0; i < MAX_LUDO_PLAYER_POINTS; i++)
-	{
-		DestroyDynamicArea(PlayerLudo[playerid][uPlayerZones][i]);
-		PlayerLudo[playerid][uPlayerZones][i] = 0;
-		DestroyDynamicObject(PlayerLudo[playerid][uObjectsPoint][i]);
-		PlayerLudo[playerid][uObjectsPoint][i] = 0;
-	}
-
-	for (new i = 0; i < MAX_LUDO_NUMBER_OF_LIVES; i++)
-	{
-		DestroyVehicle(PlayerLudo[playerid][uPlayerVehicles][i]);
-		PlayerLudo[playerid][uPlayerVehicles][i] = 0;
-	}
-
-	for (new i = 0; i < MAX_LUDO_PLAYER_LINES; i++)
-	{
-		DestroyDynamicObject(PlayerLudo[playerid][uObjectsLine][i]);
-		PlayerLudo[playerid][uObjectsLine][i] = 0;
-	}
-
-	SetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);
-	SetPlayerInterior(playerid, PlayerLudo[playerid][uOldInterior]);
-	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z], 0.0, 0, 0, 0, 0, 0, 0);
-	SpawnPlayer(playerid);
-	SetCameraBehindPlayer(playerid);
-
-	PlayerLudo[playerid][uPlayerRoomID] =
-	PlayerLudo[playerid][uPlayerNum] =
-	PlayerLudo[playerid][uPlayerWorld] =
-	PlayerLudo[playerid][uPlayerLives] =
-	PlayerLudo[playerid][uPlayerFinish] =
-	PlayerLudo[playerid][uOldPointID] =
-	PlayerLudo[playerid][uNewPointID] =
-	PlayerLudo[playerid][uIndexZone] =
-	PlayerLudo[playerid][uPlayerHomeZone] =
-	PlayerLudo[playerid][uIndexObject] =
-	PlayerLudo[playerid][uOldIndexObject] =
-	PlayerLudo[playerid][uOldWorld] =
-	PlayerLudo[playerid][uOldInterior] = 0;
-	
-	PlayerLudo[playerid][uOldPos_x] = 
-	PlayerLudo[playerid][uOldPos_y] = 
-	PlayerLudo[playerid][uOldPos_z] =
-	PlayerLudo[playerid][uPos_x] = 
-	PlayerLudo[playerid][uPos_y] = 
-	PlayerLudo[playerid][uPos_z] = 
-	PlayerLudo[playerid][uAngle] = 0.0;
-
-	return 1;
-}
 
 stock SetColorLudo(objectid, playernum, objectslot = 0)
 	return SetDynamicObjectMaterial(objectid, objectslot, ludo_map_colors[playernum][lm_id], ludo_map_colors[playernum][lm_lib], ludo_map_colors[playernum][lm_texture], 0xFFFFFFFF);
