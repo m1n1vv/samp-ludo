@@ -65,7 +65,7 @@ stock LudoCreatePlayerVehicles(playerid)
 		PlayerLudo[playerid][uPlayerVehicles][i] = AddStaticVehicle(ludo_vehicles_ids[i], 
 			ludo_vehicles_position[player_number][i][0], 
 			ludo_vehicles_position[player_number][i][1], 
-			ludo_vehicles_position[player_number][i][2]+LUDO_NEW_Z, 
+			ludo_vehicles_position[player_number][i][2]+LUDO_MAP_NEW_Z, 
 			ludo_vehicles_position[player_number][i][3], 
 			ludo_vehicles_colors[player_number], 
 			ludo_vehicles_colors[player_number]
