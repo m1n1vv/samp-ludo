@@ -167,7 +167,8 @@ stock LudoPlayerConnectToRoom(playerid, roomid)
 				
 	TogglePlayerSpectating(playerid, true);
 	AttachCameraToObject(playerid, ludo_camera_object);
-
+	
+	SetSpawnInfo(playerid, 0, 0, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z, 0.0, 0, 0, 0, 0, 0, 0); // SetSpawnInit
 	PlayerLudo[playerid][uPlayerTimer] = SetTimerEx("LudoPlayerSpawnTimer", 1000, true, "i", playerid);
 	return 1;
 }
@@ -179,7 +180,6 @@ public LudoPlayerSpawnTimer(playerid)
 	if (PlayerLudo[playerid][uPlayerTimerSec] == 0)
 	{
 		TogglePlayerSpectating(playerid, false);
-		SetPlayerPos(playerid, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z);
 		return KillTimer(PlayerLudo[playerid][uPlayerTimer]);
 	}
 
@@ -187,8 +187,6 @@ public LudoPlayerSpawnTimer(playerid)
 	SendClientMessage(playerid, -1, str);
 
 	PlayerLudo[playerid][uPlayerTimerSec]--;
-
-
 	return 1;
 }
 
