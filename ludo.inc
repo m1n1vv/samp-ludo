@@ -93,7 +93,7 @@ static
 	ludo_main_zone;
 
 #include "../ludo/ludo_map.inc"
-#include "../ludo/ludo_dialog.inc"
+#include "../ludo/ludo_dialogs.inc"
 #include "../ludo/ludo_vehicles.inc"
 #include "../ludo/ludo_navigator.inc"
 
