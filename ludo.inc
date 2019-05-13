@@ -56,6 +56,11 @@ enum
 		uIndexZone,
 
 		uPlayerVehicles[MAX_LUDO_NUMBER_OF_LIVES],
+		
+		Float:uOldPos_x,
+		Float:uOldPos_y,
+		Float:uOldPos_z,
+		uOldWorld,
 
 		Float:uPos_x,
 		Float:uPos_y,
@@ -162,7 +167,9 @@ stock LudoPlayerConnectToRoom(playerid, roomid)
 	PlayerLudo[playerid][uPlayerRoomID] = roomid;
 	LudoInfo[roomid-1][gNumPlayers]++;
 	PlayerLudo[playerid][uPlayerNum] = LudoInfo[roomid-1][gNumPlayers];
-				
+	
+	GetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z]);
+	GetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);			
 	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, 0.0, 0.0, 1.0+LUDO_MAP_NEW_Z, 0.0, 0, 0, 0, 0, 0, 0);
 
 	TogglePlayerSpectating(playerid, true);
@@ -177,6 +184,57 @@ public LudoPlayerSpawnTimer(playerid)
 {
 	CancelEdit(playerid);
 	TogglePlayerSpectating(playerid, false);
+
+	return 1;
+}
+
+stock LudoPlayerExitFromRoom(playerid)
+{
+	for (new i = 0; i < MAX_LUDO_PLAYER_POINTS; i++)
+	{
+		DestroyDynamicArea(PlayerLudo[playerid][uPlayerZones][i]);
+		PlayerLudo[playerid][uPlayerZones][i] = 0;
+		DestroyDynamicObject(PlayerLudo[playerid][uObjectsPoint][i]);
+		PlayerLudo[playerid][uObjectsPoint][i] = 0;
+	}
+
+	for (new i = 0; i < MAX_LUDO_NUMBER_OF_LIVES; i++)
+	{
+		DestroyVehicle(PlayerLudo[playerid][uPlayerVehicles][i]);
+		PlayerLudo[playerid][uPlayerVehicles][i] = 0;
+	}
+
+	for (new i = 0; i < MAX_LUDO_PLAYER_LINES; i++)
+	{
+		DestroyDynamicObject(PlayerLudo[playerid][uObjectsLine][i]);
+		PlayerLudo[playerid][uObjectsLine][i] = 0;
+	}
+
+	PlayerLudo[playerid][uPlayerRoomID] =
+	PlayerLudo[playerid][uPlayerNum] =
+	PlayerLudo[playerid][uPlayerWorld] =
+	PlayerLudo[playerid][uPlayerLives] =
+	PlayerLudo[playerid][uPlayerFinish] =
+	PlayerLudo[playerid][uOldPointID] =
+	PlayerLudo[playerid][uNewPointID] =
+	PlayerLudo[playerid][uIndexZone] =
+	PlayerLudo[playerid][uPlayerHomeZone] =
+	PlayerLudo[playerid][uIndexObject] =
+	PlayerLudo[playerid][uOldIndexObject] = 0;
+	PlayerLudo[playerid][uPos_x] = 
+	PlayerLudo[playerid][uPos_y] = 
+	PlayerLudo[playerid][uPos_z] = 
+	PlayerLudo[playerid][uAngle] = 0.0;
+
+	SetPlayerVirtualWorld(playerid, PlayerLudo[playerid][uOldWorld]);
+	SetSpawnInfo(playerid, GetPlayerSkin(playerid), 0, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z], 0.0, 0, 0, 0, 0, 0, 0);
+	SpawnPlayer(playerid);
+	SetCameraBehindPlayer(playerid);
+
+	PlayerLudo[playerid][uOldPos_x] = 
+	PlayerLudo[playerid][uOldPos_y] = 
+	PlayerLudo[playerid][uOldPos_z] = 0.0;
+	PlayerLudo[playerid][uOldWorld] = 0;
 
 	return 1;
 }
