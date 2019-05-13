@@ -333,7 +333,7 @@ stock LudoNavigation(playerid, pointsnum)
 			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 			LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 		);
-		SetColorDynamicLudo(PlayerLudo[playerid][uObjectsPoint][index_zone], player_number);
+		SetColorLudo(PlayerLudo[playerid][uObjectsPoint][index_zone], player_number);
 	}
 	else
 	{
@@ -394,7 +394,7 @@ stock LudoNavigation(playerid, pointsnum)
 			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 			LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 		);
-		SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][0], player_number);
+		SetColorLudo(PlayerLudo[playerid][uObjectsLine][0], player_number);
 
 		PlayerLudo[playerid][uObjectsLine][1] = CreateDynamicObject(19366, 
 			ludo_navigator_lines_start[player_number][1][0], 
@@ -405,7 +405,7 @@ stock LudoNavigation(playerid, pointsnum)
 			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 			LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 		);
-		SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][1], player_number);
+		SetColorLudo(PlayerLudo[playerid][uObjectsLine][1], player_number);
 		
 		PlayerLudo[playerid][uIndexObject] = 2;
 	}
@@ -437,7 +437,7 @@ stock LudoNavigation(playerid, pointsnum)
 						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 						LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 					);
-					SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
+					SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 					index++;
 					index3++;
@@ -453,7 +453,7 @@ stock LudoNavigation(playerid, pointsnum)
 						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 						LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 					);
-					SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
+					SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 					index++;
 					index3++;
@@ -469,7 +469,7 @@ stock LudoNavigation(playerid, pointsnum)
 						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 						LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 					);
-					SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
+					SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 					PlayerLudo[playerid][uIndexObject] += 3;
 				}
@@ -485,7 +485,7 @@ stock LudoNavigation(playerid, pointsnum)
 						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 						LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 					);
-					SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
+					SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 					PlayerLudo[playerid][uIndexObject]++;
 				}
@@ -507,7 +507,7 @@ stock LudoNavigation(playerid, pointsnum)
 					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 					LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 				);
-				SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
+				SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 				index++;
 
@@ -520,7 +520,7 @@ stock LudoNavigation(playerid, pointsnum)
 					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
 					LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 				);
-				SetColorDynamicLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
+				SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
 
 				index++;
 
