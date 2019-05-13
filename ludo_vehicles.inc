@@ -51,18 +51,18 @@ static const
 
 CMD:v(playerid)
 {
-	PlayerLudo[playerid][uPlayerNum] = 4;
+	PlayerLudo[playerid][uNumber] = 4;
 	return LudoCreatePlayerVehicles(playerid);
 }
 
 stock LudoCreatePlayerVehicles(playerid)
 {
 	new
-		player_number = PlayerLudo[playerid][uPlayerNum]-1;
+		player_number = PlayerLudo[playerid][uNumber]-1;
 
 	for (new i = 0; i < MAX_LUDO_NUMBER_OF_LIVES; i++)
 	{
-		PlayerLudo[playerid][uPlayerVehicles][i] = AddStaticVehicle(ludo_vehicles_ids[i], 
+		PlayerLudo[playerid][uVehicles][i] = AddStaticVehicle(ludo_vehicles_ids[i], 
 			ludo_vehicles_position[player_number][i][0], 
 			ludo_vehicles_position[player_number][i][1], 
 			ludo_vehicles_position[player_number][i][2]+LUDO_MAP_NEW_Z, 
@@ -70,8 +70,8 @@ stock LudoCreatePlayerVehicles(playerid)
 			ludo_vehicles_colors[player_number], 
 			ludo_vehicles_colors[player_number]
 		);
-		SetVehicleVirtualWorld(PlayerLudo[playerid][uPlayerVehicles][i], PlayerLudo[playerid][uPlayerWorld]);
-		LinkVehicleToInterior(PlayerLudo[playerid][uPlayerVehicles][i], LUDO_INTERIOR);
+		SetVehicleVirtualWorld(PlayerLudo[playerid][uVehicles][i], PlayerLudo[playerid][uWorld]);
+		LinkVehicleToInterior(PlayerLudo[playerid][uVehicles][i], LUDO_INTERIOR);
 	}
 	return 1;
 }
