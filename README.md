@@ -9,7 +9,7 @@
 ---------
 ### Точка спавна:
 ```pawn
-SetPlayerPos(playerid, 0.0, 0.0, LUDO_NEW_Z+10.0);
+SetPlayerPos(playerid, 0.0, 0.0, LUDO_MAP_NEW_Z+10.0);
 ```
 ---------
 ![alt text](https://i.imgur.com/9zDBaEe.png)
