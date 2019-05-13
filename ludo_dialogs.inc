@@ -35,7 +35,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new
 				room_id = ludo_dialog_listitem[listitem]+1;
 
-			LudoPlayerConnectToRoom(playerid, room_id);
+			LudoPlayerEnterToRoom(playerid, room_id);
 		}
 		return 1;
 	}
@@ -48,17 +48,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			case 0:
 			{
-				PlayerLudo[playerid][uPlayerAccessRoom] = !PlayerLudo[playerid][uPlayerAccessRoom];
+				PlayerLudo[playerid][uAccessRoom] = !PlayerLudo[playerid][uAccessRoom];
 				return LudoMenuCreateRoom(playerid);
 			}
 			case 1:
 			{
 				MAX_LUDO_CREATE_GAMES++;
-				LudoInfo[MAX_LUDO_CREATE_GAMES-1][gAccessToRoom] = PlayerLudo[playerid][uPlayerAccessRoom];
-				PlayerLudo[playerid][uPlayerAccessRoom] = 0;
+				LudoInfo[MAX_LUDO_CREATE_GAMES-1][gAccessToRoom] = PlayerLudo[playerid][uAccessRoom];
+				PlayerLudo[playerid][uAccessRoom] = 0;
 
-				SendClientMessage(playerid, -1, !""#LUDO_TITLE" Комната создана");
-				LudoPlayerConnectToRoom(playerid, MAX_LUDO_CREATE_GAMES);
+				SendClientMessage(playerid, -1, !""#LUDO_TITLE": Комната создана");
+				LudoPlayerEnterToRoom(playerid, MAX_LUDO_CREATE_GAMES);
 
 				return 1;
 			}
@@ -93,29 +93,28 @@ static stock LudoMenuCreateRoom(playerid)
 	static
 		string[sizeof str + 8 - 2];
 
-	format(string, sizeof string, str, PlayerLudo[playerid][uPlayerAccessRoom] == 0 ? "открытый" : "закрытый");
+	format(string, sizeof string, str, PlayerLudo[playerid][uAccessRoom] == 0 ? "открытый" : "закрытый");
 
-	return ShowPlayerDialog(playerid, LUDO_DIALOGID_CREATE, DIALOG_STYLE_TABLIST_HEADERS, !""#LUDO_TITLE" | Создание комнаты", string, !"Выбрать", !"Закрыть");
+	return ShowPlayerDialog(playerid, LUDO_DIALOGID_CREATE, DIALOG_STYLE_TABLIST_HEADERS, !""#LUDO_TITLE" > Создание комнаты", string, !"Выбрать", !"Закрыть");
 }
 
 stock LudoRoomsList(playerid)
 {
 	const
-		SIZE_LINE = 15;
+		SIZE_LINE = 25;
 
 	new
 		listitem_id = 1,
 		str[SIZE_LINE],
-		string[SIZE_LINE*MAX_LUDO_GAMES];
-
-	strcat(string, "Создать\n");
+		string[SIZE_LINE*MAX_LUDO_GAMES] = "Комната\tИгроки\nСоздать\t \n";
 
 	for (new i = 0; i < MAX_LUDO_CREATE_GAMES; i++)
 	{
 		if (LudoInfo[i][gStartGame] != 0)
 			continue;
 
-		LudoInfo[i][gAccessToRoom] = random(2);
+		if (LudoInfo[i][gNumPlayers] > 4)
+			continue;
 
 		if (LudoInfo[i][gAccessToRoom] != 0)
 			continue;	
@@ -123,9 +122,9 @@ stock LudoRoomsList(playerid)
 		ludo_dialog_listitem[listitem_id] = i;
 		listitem_id++;
 
-		format(str, sizeof str, "Комната №%i\n", i+1);
+		format(str, sizeof str, "Комната №%i\t(%i/4)\n", i+1, LudoInfo[i][gNumPlayers]);
 		strcat(string, str);
 	}
 
-	return ShowPlayerDialog(playerid, LUDO_DIALOGID_MAIN, DIALOG_STYLE_LIST, !""#LUDO_TITLE"", string, !"Выбрать", !"Закрыть");
+	return ShowPlayerDialog(playerid, LUDO_DIALOGID_MAIN, DIALOG_STYLE_TABLIST_HEADERS, !""#LUDO_TITLE" > Список комнат", string, !"Выбрать", !"Закрыть");
 }
