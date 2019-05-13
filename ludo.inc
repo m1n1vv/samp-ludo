@@ -104,7 +104,7 @@ static
 
 public OnGameModeInit()
 {
-	ludo_main_zone = CreateDynamicSphere(0.0, 0.0, 0.0+LUDO_NEW_Z, LUDO_MAIN_ZONE_SIZE, -1, LUDO_INTERIOR, -1);
+	ludo_main_zone = CreateDynamicSphere(0.0, 0.0, 0.0+LUDO_MAP_NEW_Z, LUDO_MAIN_ZONE_SIZE, -1, LUDO_INTERIOR, -1);
 
 	#if defined ludo_OnGameModeInit
 		ludo_OnGameModeInit();
