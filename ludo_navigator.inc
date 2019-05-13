@@ -265,7 +265,7 @@ static const
 
 CMD:u(playerid, params[])
 {
-	PlayerLudo[playerid][uPlayerNum] = playerid+1;
+	PlayerLudo[playerid][uNumber] = playerid+1;
 	return LudoNavigation(playerid, strval(params));
 }
 
@@ -288,7 +288,7 @@ stock LudoNavigation(playerid, pointsnum)
 	PlayerLudo[playerid][uNewPointID] = pointsnum;
 	PlayerLudo[playerid][uOldIndexObject] = PlayerLudo[playerid][uIndexObject];
 
-	player_number = PlayerLudo[playerid][uPlayerNum];
+	player_number = PlayerLudo[playerid][uNumber];
 	player_number--;
 	player_way = PlayerLudo[playerid][uNewPointID]+PlayerLudo[playerid][uOldPointID];
 	index_zone  = PlayerLudo[playerid][uIndexZone];
@@ -317,12 +317,12 @@ stock LudoNavigation(playerid, pointsnum)
 		index_pos_zone = player_way-1+player_index;
 		index_pos_zone %= MAX_LUDO_NAVIGATOR_POINTS+1;
 
-		PlayerLudo[playerid][uPlayerZones][index_zone] = CreateDynamicSphere(
+		PlayerLudo[playerid][uZones][index_zone] = CreateDynamicSphere(
 			ludo_navigator_points[index_pos_zone][0], 
 			ludo_navigator_points[index_pos_zone][1], 
 			LUDO_NAVIGATOR_ZONE_Z+LUDO_MAP_NEW_Z, 
 			LUDO_NAVIGATOR_ZONE_SIZE, 
-			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid
+			PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid
 		);
 
 		PlayerLudo[playerid][uObjectsPoint][index_zone] = CreateDynamicObject(19844, 
@@ -330,7 +330,7 @@ stock LudoNavigation(playerid, pointsnum)
 			ludo_navigator_points[index_pos_zone][1], 
 			LUDO_NAVIGATOR_ZONE_Z+LUDO_MAP_NEW_Z, 
 			0.0, 0.0, 0.0, 
-			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+			PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 			LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 		);
 		SetColorLudo(PlayerLudo[playerid][uObjectsPoint][index_zone], player_number);
@@ -352,20 +352,20 @@ stock LudoNavigation(playerid, pointsnum)
 		{
 			SendClientMessage(playerid, -1, "Зона финиша");
 			
-			PlayerLudo[playerid][uPlayerHomeZone] = CreateDynamicPolygon(ludo_navigator_finish_zones[player_number], 
-				.worldid = PlayerLudo[playerid][uPlayerWorld], 
+			PlayerLudo[playerid][uHomeZone] = CreateDynamicPolygon(ludo_navigator_finish_zones[player_number], 
+				.worldid = PlayerLudo[playerid][uWorld], 
 				.interiorid = LUDO_INTERIOR, 
 				.playerid = playerid
 			);
 		}
 		else
 		{
-			PlayerLudo[playerid][uPlayerZones][index_zone] = CreateDynamicSphere(
+			PlayerLudo[playerid][uZones][index_zone] = CreateDynamicSphere(
 				ludo_navigator_player_points[player_number][index_pos_zone][0], 
 				ludo_navigator_player_points[player_number][index_pos_zone][1], 
 				LUDO_NAVIGATOR_ZONE_Z+LUDO_MAP_NEW_Z, 
 				LUDO_NAVIGATOR_ZONE_SIZE, 
-				PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid
+				PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid
 			);
 		}
 
@@ -374,7 +374,7 @@ stock LudoNavigation(playerid, pointsnum)
 			ludo_navigator_player_points[player_number][index_pos_zone][1], 
 			LUDO_NAVIGATOR_ZONE_Z+LUDO_MAP_NEW_Z, 
 			0.0, 0.0, 0.0, 
-			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+			PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 			LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 		);
 		WhiteColorLudo(PlayerLudo[playerid][uObjectsPoint][index_zone]);	
@@ -391,7 +391,7 @@ stock LudoNavigation(playerid, pointsnum)
 			ludo_navigator_lines_start[player_number][0][2]+LUDO_MAP_NEW_Z, 
 			0.0, 0.0, 
 			ludo_navigator_lines_start[player_number][0][3], 
-			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+			PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 			LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 		);
 		SetColorLudo(PlayerLudo[playerid][uObjectsLine][0], player_number);
@@ -402,7 +402,7 @@ stock LudoNavigation(playerid, pointsnum)
 			ludo_navigator_lines_start[player_number][1][2]+LUDO_MAP_NEW_Z, 
 			0.0,  0.0, 
 			ludo_navigator_lines_start[player_number][1][3], 
-			PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+			PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 			LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 		);
 		SetColorLudo(PlayerLudo[playerid][uObjectsLine][1], player_number);
@@ -434,7 +434,7 @@ stock LudoNavigation(playerid, pointsnum)
 						ludo_navigator_lines[index3][3], 
 						0.0, 
 						ludo_navigator_lines[index3][5], 
-						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+						PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 						LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 					);
 					SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
@@ -450,7 +450,7 @@ stock LudoNavigation(playerid, pointsnum)
 						ludo_navigator_lines[index3][3], 
 						0.0, 
 						ludo_navigator_lines[index3][5], 
-						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+						PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 						LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 					);
 					SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
@@ -466,7 +466,7 @@ stock LudoNavigation(playerid, pointsnum)
 						ludo_navigator_lines[index3][3], 
 						0.0, 
 						ludo_navigator_lines[index3][5], 
-						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+						PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 						LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 					);
 					SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
@@ -482,7 +482,7 @@ stock LudoNavigation(playerid, pointsnum)
 						ludo_navigator_lines[index3][3], 
 						0.0, 
 						ludo_navigator_lines[index3][5], 
-						PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+						PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 						LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 					);
 					SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
@@ -504,7 +504,7 @@ stock LudoNavigation(playerid, pointsnum)
 					ludo_navigator_lines_finish_1[player_number][0][2]+LUDO_MAP_NEW_Z, 
 					0.0, 0.0, 
 					ludo_navigator_lines_finish_1[player_number][0][5], 
-					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+					PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 					LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 				);
 				SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
@@ -517,7 +517,7 @@ stock LudoNavigation(playerid, pointsnum)
 					ludo_navigator_lines_finish_1[player_number][1][2]+LUDO_MAP_NEW_Z, 
 						0.0, 0.0, 
 					ludo_navigator_lines_finish_1[player_number][1][5], 
-					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+					PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 					LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 				);
 				SetColorLudo(PlayerLudo[playerid][uObjectsLine][index], player_number);
@@ -530,7 +530,7 @@ stock LudoNavigation(playerid, pointsnum)
 					ludo_navigator_lines_finish_1[player_number][2][2]+LUDO_MAP_NEW_Z, 
 					0.0, 0.0, 
 					ludo_navigator_lines_finish_1[player_number][2][5], 
-					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+					PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 					LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 				);
 				WhiteColorLudo(PlayerLudo[playerid][uObjectsLine][index]);
@@ -543,7 +543,7 @@ stock LudoNavigation(playerid, pointsnum)
 					ludo_navigator_lines_finish_1[player_number][3][2]+LUDO_MAP_NEW_Z, 
 					0.0, 0.0, 
 					ludo_navigator_lines_finish_1[player_number][3][5], 
-					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+					PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 					LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 				);
 				WhiteColorLudo(PlayerLudo[playerid][uObjectsLine][index]);
@@ -560,7 +560,7 @@ stock LudoNavigation(playerid, pointsnum)
 					ludo_navigator_lines_finish_2[player_number][index2][2]+LUDO_MAP_NEW_Z, 
 					90.0, 0.0, 
 					ludo_navigator_lines_finish_2[player_number][index2][3], 
-					PlayerLudo[playerid][uPlayerWorld], LUDO_INTERIOR, playerid, 
+					PlayerLudo[playerid][uWorld], LUDO_INTERIOR, playerid, 
 					LUDO_MAP_DISTANCE, LUDO_MAP_DISTANCE
 				);
 				WhiteColorLudo(PlayerLudo[playerid][uObjectsLine][index]);
@@ -599,23 +599,23 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 	if (PlayerLudo[playerid][uIndexZone] != 0)
 	{
-		if (areaid == PlayerLudo[playerid][uPlayerZones][index_zone])
+		if (areaid == PlayerLudo[playerid][uZones][index_zone])
 		{
-			DestroyDynamicArea(PlayerLudo[playerid][uPlayerZones][index_zone]);
-			PlayerLudo[playerid][uPlayerZones][index_zone] = 0;
+			DestroyDynamicArea(PlayerLudo[playerid][uZones][index_zone]);
+			PlayerLudo[playerid][uZones][index_zone] = 0;
 
 			LudoDeNavigation(playerid);
 
 			GetPlayerPos(playerid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
 			GetPlayerFacingAngle(playerid, PlayerLudo[playerid][uAngle]);
 		}
-		else if (areaid == PlayerLudo[playerid][uPlayerHomeZone])
+		else if (areaid == PlayerLudo[playerid][uHomeZone])
 		{
-			DestroyDynamicArea(PlayerLudo[playerid][uPlayerHomeZone]);
-			PlayerLudo[playerid][uPlayerHomeZone] = 0;
+			DestroyDynamicArea(PlayerLudo[playerid][uHomeZone]);
+			PlayerLudo[playerid][uHomeZone] = 0;
 
-			PlayerLudo[playerid][uPlayerLives]--;
-			PlayerLudo[playerid][uPlayerFinish]++;
+			PlayerLudo[playerid][uLives]--;
+			PlayerLudo[playerid][uFinish]++;
 
 			for (new i = 0, j = PlayerLudo[playerid][uIndexZone]; i < j; i++)
 			{
