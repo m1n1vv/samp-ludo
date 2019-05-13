@@ -526,7 +526,8 @@ static const
 	{0.00000, 6.75750, 90.00000}
 	};
 
-static
+new
+	ludo_camera_object,
 	ludo_objs_trumpets[MAX_LUDO_NUMBER_OF_LIVES];
 
 public OnGameModeInit()
@@ -534,12 +535,14 @@ public OnGameModeInit()
 	new
 		ludo_object;
 
-	ludo_object = CreateObject(19128, 0.00000, 0.00000, 0.04125+LUDO_NEW_Z, 0.00000, 0.00000, 0.00000, LUDO_DISTANCE);
+	ludo_camera_object = CreateDynamicObject(19477, 0.0, 0.0, 30.0+LUDO_NEW_Z, 0.0, 0.0, 0.0, -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+
+	ludo_object = CreateObject(19128, 0.0, 0.0, 0.04125+LUDO_NEW_Z, 0.0, 0.0, 0.0, LUDO_DISTANCE);
 	SetObjectMaterial(ludo_object, 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
 
 	for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
 	{
-		ludo_objs_trumpets[i] = CreateDynamicObject(18987, ludo_map_trumpets[i][0], ludo_map_trumpets[i][1], 11.9768+LUDO_NEW_Z, 0.0, 0.0, 0.0, -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+		ludo_objs_trumpets[i] = CreateDynamicObject(18987, ludo_map_trumpets[i][0], ludo_map_trumpets[i][1], 11.9768+LUDO_NEW_Z, 0.0, 0.0, 0.0, -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetColorDynamicLudo(ludo_objs_trumpets[i], i);
 		SetColorDynamicLudo(ludo_objs_trumpets[i], i, 1);
 
@@ -553,7 +556,7 @@ public OnGameModeInit()
 		//SetColorLudo(ludo_object, i, 5);
 		SetObjectMaterial(ludo_object, 6, 0, " ", " ", 0x00);
 
-		ludo_object = CreateDynamicObject(18783, ludo_map_finish[i][0], ludo_map_finish[i][1], -2.45140+LUDO_NEW_Z, 0.0, 0.0, ludo_map_finish[i][2], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+		ludo_object = CreateDynamicObject(18783, ludo_map_finish[i][0], ludo_map_finish[i][1], -2.45140+LUDO_NEW_Z, 0.0, 0.0, ludo_map_finish[i][2], -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetColorDynamicLudo(ludo_object, i, 1);
 
 		for (new j = 0; j < MAX_LUDO_OBJECTS_PLAYER_BLOCKS; j++)
@@ -572,55 +575,55 @@ public OnGameModeInit()
 					case 3: y = -3.5;
 				}
 
-				ludo_object = CreateDynamicObject(19482, ludo_map_player[i][j][0]+x, ludo_map_player[i][j][1]+y, 0.0+LUDO_NEW_Z+0.1, 0.0, -90.0, ludo_map_player[i][j][5]-90.0, -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+				ludo_object = CreateDynamicObject(19482, ludo_map_player[i][j][0]+x, ludo_map_player[i][j][1]+y, 0.0+LUDO_NEW_Z+0.1, 0.0, -90.0, ludo_map_player[i][j][5]-90.0, -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 				SetDynamicObjectMaterialText(ludo_object, 0, !"START", 130, !"Arial", 170, 1, -1, 0, 1);
 			}
 			
-			ludo_object = CreateDynamicObject(19381,ludo_map_player[i][j][0], ludo_map_player[i][j][1], 0.0+LUDO_NEW_Z, 0.0, 90.0, ludo_map_player[i][j][5], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+			ludo_object = CreateDynamicObject(19381,ludo_map_player[i][j][0], ludo_map_player[i][j][1], 0.0+LUDO_NEW_Z, 0.0, 90.0, ludo_map_player[i][j][5], -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 			SetColorDynamicLudo(ludo_object, i);
 		}
 
 		for (new u = 0; u < MAX_LUDO_OBJECTS_CARS_POLYGON; u++)
 		{
-			ludo_object = CreateDynamicObject(19381, ludo_map_cars_polygon[i][u][0], ludo_map_cars_polygon[i][u][1], ludo_map_cars_polygon[i][u][2]+LUDO_NEW_Z+LUDO_CARS_SPAWN_Z, 0.0, 90.0, 90.0, -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+			ludo_object = CreateDynamicObject(19381, ludo_map_cars_polygon[i][u][0], ludo_map_cars_polygon[i][u][1], ludo_map_cars_polygon[i][u][2]+LUDO_NEW_Z+LUDO_CARS_SPAWN_Z, 0.0, 90.0, 90.0, -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 			WhiteColorLudo(ludo_object);
 		}
 	}
 
 	for (new i = 0; i < MAX_LUDO_OBJECTS_FOOTER; i++)
 	{
-		ludo_object = CreateDynamicObject(19543, ludo_map_footer[i][0], ludo_map_footer[i][1], -10.38930+LUDO_NEW_Z, 0.0, 0.0, ludo_map_footer[i][2], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+		ludo_object = CreateDynamicObject(19543, ludo_map_footer[i][0], ludo_map_footer[i][1], -10.38930+LUDO_NEW_Z, 0.0, 0.0, ludo_map_footer[i][2], -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetDynamicObjectMaterial(ludo_object, 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
 	}
 
 	for (new i = 0; i < MAX_LUDO_OBJECTS_POLYGON; i++)
 	{
-		ludo_object = CreateDynamicObject(19543, ludo_map_polygon[i][0], ludo_map_polygon[i][1], LUDO_POLYGON_Z+LUDO_NEW_Z, 0.0, 0.0, 0.0, -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+		ludo_object = CreateDynamicObject(19543, ludo_map_polygon[i][0], ludo_map_polygon[i][1], LUDO_POLYGON_Z+LUDO_NEW_Z, 0.0, 0.0, 0.0, -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetDynamicObjectMaterial(ludo_object, 0, 3906, !"libertyhi5", !"indtendark64", 0xFFFFFFFF);
 	}
 
 
 	for (new i = 0; i < MAX_LUDO_OBJECTS_BLOCKS1; i++)
 	{
-		ludo_object = CreateDynamicObject(19377, ludo_map_blocks1[i][0], ludo_map_blocks1[i][1], 0.0+LUDO_NEW_Z, 0.0, 90.0, ludo_map_blocks1[i][2], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+		ludo_object = CreateDynamicObject(19377, ludo_map_blocks1[i][0], ludo_map_blocks1[i][1], 0.0+LUDO_NEW_Z, 0.0, 90.0, ludo_map_blocks1[i][2], -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetDynamicObjectMaterial(ludo_object, 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 	}
 
 	for (new i = 0; i < MAX_LUDO_OBJECTS_BLOCKS2; i++)
 	{
-		ludo_object = CreateDynamicObject(19447, ludo_map_blocks2[i][0], ludo_map_blocks2[i][1], -0.004+LUDO_NEW_Z, 0.0, 90.0, ludo_map_blocks2[i][2], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+		ludo_object = CreateDynamicObject(19447, ludo_map_blocks2[i][0], ludo_map_blocks2[i][1], -0.004+LUDO_NEW_Z, 0.0, 90.0, ludo_map_blocks2[i][2], -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetDynamicObjectMaterial(ludo_object, 0, 16150, !"ufo_bar", !"GEwhite1_64", 0xFFFFFFFF);
 	}
 
 	for (new i = 0; i < MAX_LUDO_OBJECTS_BORDER; i++)
 	{
-		ludo_object = CreateDynamicObject(19379, ludo_map_border[i][0], ludo_map_border[i][1], ludo_map_border[i][2]+LUDO_NEW_Z, ludo_map_border[i][3], 0.0, ludo_map_border[i][4], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+		ludo_object = CreateDynamicObject(19379, ludo_map_border[i][0], ludo_map_border[i][1], ludo_map_border[i][2]+LUDO_NEW_Z, ludo_map_border[i][3], 0.0, ludo_map_border[i][4], -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetDynamicObjectMaterial(ludo_object, 0, 1676, !"wshxrefpump", !"black64", 0xFFFFFFFF);
 	}
 
 	for (new i = 0; i < MAX_LUDO_OBJECTS_WALLS; i++)
 	{
-		ludo_object = CreateDynamicObject(19379, ludo_map_walls[i][0], ludo_map_walls[i][1], 0.0+LUDO_NEW_Z, 0.0, 0.0, ludo_map_walls[i][2], -1, -1, -1, LUDO_DISTANCE, LUDO_DISTANCE);
+		ludo_object = CreateDynamicObject(19379, ludo_map_walls[i][0], ludo_map_walls[i][1], 0.0+LUDO_NEW_Z, 0.0, 0.0, ludo_map_walls[i][2], -1, LUDO_INTERIOR, -1, LUDO_DISTANCE, LUDO_DISTANCE);
 		SetDynamicObjectMaterial(ludo_object, 0, 0, " ", " ", 0x00);
 	}
 
