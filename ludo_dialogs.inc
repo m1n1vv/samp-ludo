@@ -117,7 +117,7 @@ stock LudoRoomsList(playerid)
 
 	for (new i = 0; i < MAX_LUDO_CREATE_GAMES; i++)
 	{
-		if (LudoInfo[i][gStartGame] != 0)
+		if (LudoInfo[i][gGameStart] != 0)
 			continue;
 
 		if (LudoInfo[i][gNumPlayers] > 4)
