@@ -263,6 +263,9 @@ static const
 		{-13.31165, 12.65555, -2.63084, 1.63111, -2.63080, -1.63110, -13.31170, -12.65560, -13.31165, 12.65555}
 	};
 
+static
+	ludo_navigator_player[MAX_PLAYERS char];
+
 CMD:u(playerid, params[])
 {
 	PlayerLudo[playerid][uNumber] = playerid+1;
@@ -622,13 +625,18 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 					if (zoneid == PlayerLudo[playerid][uNewPointID])
 					{
 						//взрыв [i]
-						//взрыв [playerid]
+						ludo_navigator_player{playerid} = 1;
 					}
 					else if ((PlayerLudo[playerid][uOldPointID] < zoneid < PlayerLudo[playerid][uNewPointID]))
 					{
 						//взрыв [i]
 					}
 				}
+			}
+			if (ludo_navigator_player{playerid} == 1)
+			{
+				//взрыв [playerid]
+				ludo_navigator_player{playerid} = 0;
 			}
 		}
 		else if (areaid == PlayerLudo[playerid][uHomeZone])
