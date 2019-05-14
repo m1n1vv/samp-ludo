@@ -83,6 +83,7 @@ stock LudoPlayerExitFromRoom(playerid)
 	SetCameraBehindPlayer(playerid);
 
 	PlayerLudo[playerid][uRoomID] =
+	PlayerLudo[playerid][uRoomAdmin] =
 	PlayerLudo[playerid][uNumber] =
 	PlayerLudo[playerid][uLives] =
 	PlayerLudo[playerid][uFinish] =
