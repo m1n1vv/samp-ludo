@@ -21,7 +21,7 @@ CMD:invite(playerid, params[])
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": /invite [id]");
 
 	new
-		roomid = PlayerLudo[playerid][uRoomID]-1,
+		roomid = PlayerLudo[playerid][uRoomID],
 		id = strval(params);
 
 	if (!IsPlayerConnected(id))
