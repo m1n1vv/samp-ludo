@@ -23,6 +23,9 @@ CMD:invite(playerid, params[])
 	new
 		roomid = PlayerLudo[playerid][uRoomID],
 		id = strval(params);
+		
+	if (id == playerid)
+		return 0;
 
 	if (!IsPlayerConnected(id))
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок не найден");
