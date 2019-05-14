@@ -7,17 +7,12 @@ enum
 {
 	LUDO_DIALOGID_MAIN = 1234,
 	LUDO_DIALOGID_CREATE,
-	LUDO_DIALOGID_NAME_ROOM
+	LUDO_DIALOGID_NAME_ROOM,
+	LUDO_DIALOGID_EXIT
 }
 
 static
 	ludo_dialog_listitem[MAX_LUDO_GAMES];
-
-CMD:d(playerid)
-{
-	LudoRoomsList(playerid);
-	return 1;
-}
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
@@ -67,6 +62,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 		return 1;
 	}
+	else if (dialogid == LUDO_DIALOGID_EXIT)
+	{
+		if (response == 0)
+		{
+			return 0;
+		}
+		else
+		{
+			return LudoPlayerExitFromRoom(playerid);
+		}
+	}
 	
 	#if defined ludo_dialogs_OnDialogResponse
 		ludo_dialogs_OnDialogResponse(playerid, dialogid, response, listitem, inputtext);
@@ -104,7 +110,7 @@ stock LudoRoomsList(playerid)
 		SIZE_LINE = 25;
 
 	new
-		listitem_id = 1,
+		listitemid = 1,
 		str[SIZE_LINE],
 		string[SIZE_LINE*MAX_LUDO_GAMES] = "Комната\tИгроки\nСоздать\t \n";
 
@@ -119,8 +125,8 @@ stock LudoRoomsList(playerid)
 		if (LudoInfo[i][gAccessToRoom] != 0)
 			continue;	
 
-		ludo_dialog_listitem[listitem_id] = i;
-		listitem_id++;
+		ludo_dialog_listitem[listitemid] = i;
+		listitemid++;
 
 		format(str, sizeof str, "Комната №%i\t(%i/4)\n", i+1, LudoInfo[i][gNumPlayers]);
 		strcat(string, str);
