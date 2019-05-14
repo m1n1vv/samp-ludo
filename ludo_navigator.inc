@@ -601,6 +601,10 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 	{
 		if (areaid == PlayerLudo[playerid][uZones][index_zone])
 		{
+			new
+				zoneid,
+				roomid = PlayerLudo[playerid][uRoomID]-1;
+
 			DestroyDynamicArea(PlayerLudo[playerid][uZones][index_zone]);
 			PlayerLudo[playerid][uZones][index_zone] = 0;
 
@@ -608,6 +612,24 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 			GetPlayerPos(playerid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
 			GetPlayerFacingAngle(playerid, PlayerLudo[playerid][uAngle]);
+
+			foreach (Player, i)
+			{
+				if (PlayerLudo[i][uRoomID] == roomid && i != playerid)
+				{
+					zoneid = PlayerLudo[i][uIndexZone];
+
+					if (zoneid == PlayerLudo[playerid][uNewPointID])
+					{
+						//взрыв [i]
+						//взрыв [playerid]
+					}
+					else if ((PlayerLudo[playerid][uOldPointID] < zoneid < PlayerLudo[playerid][uNewPointID]))
+					{
+						//взрыв [i]
+					}
+				}
+			}
 		}
 		else if (areaid == PlayerLudo[playerid][uHomeZone])
 		{
