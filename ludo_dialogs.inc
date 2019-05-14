@@ -51,6 +51,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				MAX_LUDO_CREATE_GAMES++;
 				LudoInfo[MAX_LUDO_CREATE_GAMES-1][gAccessToRoom] = PlayerLudo[playerid][uAccessRoom];
 				PlayerLudo[playerid][uAccessRoom] = 0;
+				PlayerLudo[playerid][uRoomAdmin] = MAX_LUDO_CREATE_GAMES;
 
 				SendClientMessage(playerid, -1, !""#LUDO_TITLE": Комната создана");
 				LudoPlayerEnterToRoom(playerid, MAX_LUDO_CREATE_GAMES);
