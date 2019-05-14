@@ -134,18 +134,23 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
 	if (areaid == ludo_main_zone)
 	{
-		if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+		if (PlayerLudo[playerid][uRoomID] != 0)
 		{
-			new
-				vehicleid = GetPlayerVehicleID(playerid);
+			if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+			{
+				new
+					vehicleid = GetPlayerVehicleID(playerid);
 
-			SetVehiclePos(vehicleid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
-			SetVehicleZAngle(vehicleid, PlayerLudo[playerid][uAngle]);
-		}
-		else
-		{
-			SetPlayerPos(playerid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
-			SetPlayerFacingAngle(playerid, PlayerLudo[playerid][uAngle]);
+				SetVehiclePos(vehicleid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
+				SetVehicleZAngle(vehicleid, PlayerLudo[playerid][uAngle]);
+			}
+			else
+			{
+				SetPlayerPos(playerid, PlayerLudo[playerid][uPos_x], PlayerLudo[playerid][uPos_y], PlayerLudo[playerid][uPos_z]);
+				SetPlayerFacingAngle(playerid, PlayerLudo[playerid][uAngle]);
+			}
+
+			SetCameraBehindPlayer(playerid);
 		}
 		
 		return 1;
@@ -157,7 +162,6 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 	return 1;
 }
-
 #if defined _ALS_OnPlayerLeaveDynamicArea
 	#undef OnPlayerLeaveDynamicArea
 #else
