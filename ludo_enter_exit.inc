@@ -19,7 +19,7 @@ stock LudoPlayerEnterToRoom(playerid, roomid)
 	LudoInfo[roomid-1][gNumPlayers]++;
 	PlayerLudo[playerid][uNumber] = LudoInfo[roomid-1][gNumPlayers];
 
-	if (LudoInfo[roomid-1][gNumPlayers] == 4)
+	if (LudoInfo[roomid-1][gNumPlayers] == MAX_LUDO_PLAYERS)
 		LudoInfo[roomid-1][gTimeStart] = LUDO_TIME_START;
 	
 	GetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z]);
