@@ -107,6 +107,7 @@ static
 #include "../ludo/ludo_dialogs.inc"
 #include "../ludo/ludo_vehicles.inc"
 #include "../ludo/ludo_navigator.inc"
+#include "../ludo/ludo_cmd.inc"
 
 public OnGameModeInit()
 {
