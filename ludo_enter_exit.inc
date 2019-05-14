@@ -18,6 +18,9 @@ stock LudoPlayerEnterToRoom(playerid, roomid)
 	PlayerLudo[playerid][uRoomID] = roomid;
 	LudoInfo[roomid-1][gNumPlayers]++;
 	PlayerLudo[playerid][uNumber] = LudoInfo[roomid-1][gNumPlayers];
+
+	if (LudoInfo[roomid-1][gNumPlayers] == 4)
+		LudoInfo[roomid-1][gTimeStart] = LUDO_TIME_START;
 	
 	GetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z]);
 	PlayerLudo[playerid][uOldWorld] = GetPlayerVirtualWorld(playerid);
@@ -54,6 +57,7 @@ stock LudoPlayerExitFromRoom(playerid)
 		roomid = PlayerLudo[playerid][uRoomID]-1;
 
 	LudoInfo[roomid][gNumPlayers]--;
+	LudoInfo[roomid][gTimeStart] = 0;
 
 	for (new i = 0; i < MAX_LUDO_PLAYER_POINTS; i++)
 	{
