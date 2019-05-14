@@ -50,6 +50,11 @@ public LudoPlayerSpawnTimer(playerid)
 
 stock LudoPlayerExitFromRoom(playerid)
 {
+	new
+		roomid = PlayerLudo[playerid][uRoomID]-1;
+
+	LudoInfo[roomid][gNumPlayers]--;
+
 	for (new i = 0; i < MAX_LUDO_PLAYER_POINTS; i++)
 	{
 		DestroyDynamicArea(PlayerLudo[playerid][uZones][i]);
@@ -74,22 +79,24 @@ stock LudoPlayerExitFromRoom(playerid)
 	#if LUDO_INTERIOR != 0
 		SetPlayerInterior(playerid, PlayerLudo[playerid][uOldInterior]);
 	#endif
-	SetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z], 0.0, 0, 0, 0, 0, 0, 0);
+	SetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z]);
 	SetCameraBehindPlayer(playerid);
 
 	PlayerLudo[playerid][uRoomID] =
 	PlayerLudo[playerid][uNumber] =
-	PlayerLudo[playerid][uWorld] =
 	PlayerLudo[playerid][uLives] =
 	PlayerLudo[playerid][uFinish] =
+	PlayerLudo[playerid][uWorld] =
+	PlayerLudo[playerid][uOldWorld] =
 	PlayerLudo[playerid][uOldPointID] =
 	PlayerLudo[playerid][uNewPointID] =
 	PlayerLudo[playerid][uIndexZone] =
 	PlayerLudo[playerid][uHomeZone] =
 	PlayerLudo[playerid][uIndexObject] =
-	PlayerLudo[playerid][uOldIndexObject] =
-	PlayerLudo[playerid][uOldWorld] =
-	PlayerLudo[playerid][uOldInterior] = 0;
+	PlayerLudo[playerid][uOldIndexObject] = 0;
+	#if LUDO_INTERIOR != 0
+		PlayerLudo[playerid][uOldInterior] = 0;
+	#endif
 	
 	PlayerLudo[playerid][uOldPos_x] = 
 	PlayerLudo[playerid][uOldPos_y] = 
