@@ -30,15 +30,18 @@ const
 const
 	LUDO_WORLD = 10000,
 	LUDO_INTERIOR = 0,
-	Float:LUDO_MAIN_ZONE_SIZE = 100.0;
+	Float:LUDO_MAIN_ZONE_SIZE = 100.0,
+	LUDO_TIME_START = 10;
 
 
 enum
 	ludo_game_info
 	{
 		gAccessToRoom,
-		gStartGame,
-		gNumPlayers
+		gGameStart,
+		gNumPlayers,
+		gTimeStart,
+		gTimeGame
 	}
 
 enum
@@ -108,6 +111,7 @@ static
 #include "../ludo/ludo_dialogs.inc"
 #include "../ludo/ludo_vehicles.inc"
 #include "../ludo/ludo_navigator.inc"
+#include "../ludo/ludo_timer.inc"
 #include "../ludo/ludo_cmd.inc"
 
 public OnGameModeInit()
