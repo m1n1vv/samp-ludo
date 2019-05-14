@@ -627,7 +627,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 						//взрыв [i]
 						ludo_navigator_player{playerid} = 1;
 					}
-					else if ((PlayerLudo[playerid][uOldPointID] < zoneid < PlayerLudo[playerid][uNewPointID]))
+					if ((PlayerLudo[playerid][uOldPointID] < zoneid < PlayerLudo[playerid][uNewPointID]))
 					{
 						//взрыв [i]
 					}
