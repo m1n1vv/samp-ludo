@@ -45,6 +45,7 @@ enum
 	ludo_player_info
 	{
 		uAccessRoom,
+		uRoomAdmin,
 		uRoomID,
 		uNumber,
 		uLives,
