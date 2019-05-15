@@ -15,26 +15,31 @@ public LudoTimer()
 		{
 			LudoInfo[i][gTimeGame]--;
 
-			format(string, sizeof string,"%02i:%02i", LudoInfo[i][gTimeGame]/60, LudoInfo[i][gTimeGame]%60); 
+			format(string, sizeof string, "%02i:%02i", LudoInfo[i][gTimeGame]/60, LudoInfo[i][gTimeGame]%60); 
 
 			for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
 			{
 				SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
 			}
-			
+
 			if (LudoInfo[i][gTimeGame] == 0)
 			{
 				LudoInfo[i][gGameStart] = -1;
 				//LudoWinner();
 			}
-
-			continue;
 		}
 		else if (LudoInfo[i][gGameStart] == 0 && LudoInfo[i][gNumPlayers] == MAX_LUDO_PLAYERS)
 		{
-			LudoInfo[i][gTimeStart]--;
+			if (--LudoInfo[i][gTimeStart] != 0)
+			{
+				format(string, sizeof string, "%i", LudoInfo[i][gTimeStart]); 
 
-			if (LudoInfo[i][gTimeStart] == 0)
+				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
+				{
+					SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
+				}
+			}
+			else
 			{
 				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
 				{
@@ -44,16 +49,8 @@ public LudoTimer()
 				LudoInfo[i][gGameStart] = 1;
 				LudoInfo[i][gTimeGame] = 1200;
 			}
-			else
-			{
-				format(string, sizeof string,"%i", LudoInfo[i][gTimeStart]); 
-
-				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
-				{
-					SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
-				}
-			}
 		}
 	}
+
 	return 1;
 }
