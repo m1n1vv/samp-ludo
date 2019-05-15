@@ -3,6 +3,12 @@
 #endif
 #define LUDO_CMD
 
+CMD:list(playerid)
+{
+	return LudoRoomsList(playerid);
+	
+}
+
 CMD:ludo(playerid)
 {
 	if (PlayerLudo[playerid][uRoomID] == 0)
@@ -16,36 +22,6 @@ CMD:ludo(playerid)
 }
 
 CMD:invite(playerid, params[])
-{
-	if (PlayerLudo[playerid][uRoomID] == 0)
-		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": Вы не в комнате");
-
-	if (isnull(params))
-		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": /ex [id]");
-
-	new
-		roomid = PlayerLudo[playerid][uRoomID],
-		id = strval(params);
-
-	if (roomid != PlayerLudo[playerid][uRoomAdmin])
-		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": Вы не создатель этой комнаты");
-
-	if (id == playerid)
-		return 0;
-
-	if (!IsPlayerConnected(id))
-		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок не найден");
-		
-	if (LudoInfo[roomid-1][gGameStart] != 0)
-		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игра уже началась");
-
-	if (PlayerLudo[id][uRoomID] != 0)
-		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок в другой комнате");
-
-	return LudoPlayerEnterToRoom(id, roomid);
-}
-
-CMD:ex(playerid, params[])
 {
 	if (PlayerLudo[playerid][uRoomID] == 0)
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": Вы не в комнате");
@@ -65,8 +41,38 @@ CMD:ex(playerid, params[])
 
 	if (!IsPlayerConnected(id))
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок не найден");
-		
-	if (LudoInfo[roomid-1][gGameStart] != 0)
+
+	if (LudoInfo[roomid][gGameStart] != 0)
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игра уже началась");
+
+	if (PlayerLudo[id][uRoomID] != 0)
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок в другой комнате");
+
+	return LudoPlayerEnterToRoom(id, roomid);
+}
+
+CMD:ex(playerid, params[])
+{
+	if (PlayerLudo[playerid][uRoomID] == 0)
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": Вы не в комнате");
+
+	if (isnull(params))
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": /ex [id]");
+
+	new
+		roomid = PlayerLudo[playerid][uRoomID],
+		id = strval(params);
+
+	if (roomid != PlayerLudo[playerid][uRoomAdmin])
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": Вы не создатель этой комнаты");
+
+	if (id == playerid)
+		return 0;
+
+	if (!IsPlayerConnected(id))
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок не найден");
+
+	if (LudoInfo[roomid][gGameStart] != 0)
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игра уже началась");
 
 	if (PlayerLudo[id][uRoomID] != roomid)
