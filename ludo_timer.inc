@@ -7,13 +7,21 @@ forward LudoTimer();
 public LudoTimer()
 {
 	static
-		string[3];
+		string[6];
 		
 	for(new i = 0; i < MAX_LUDO_CREATE_GAMES; i++)
 	{
 		if (LudoInfo[i][gGameStart] == 1)
 		{
 			LudoInfo[i][gTimeGame]--;
+
+			format(string, sizeof string,"%i:%i", LudoInfo[i][gTimeGame]/60, LudoInfo[i][gTimeGame]%60); 
+
+			for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
+			{
+				SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
+			}
+
 			continue;
 		}
 
@@ -26,16 +34,17 @@ public LudoTimer()
 
 			if (LudoInfo[i][gTimeStart] == 0)
 			{
-				LudoInfo[i][gGameStart] = 1;
-
 				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
 				{
 					SendClientMessage(LudoInfo[i][gPlayersID][j], -1, !"START");
 				}
+
+				LudoInfo[i][gGameStart] = 1;
+				LudoInfo[i][gTimeGame] = 1200;
 			}
 			else
 			{
-				format(string, sizeof string,"%d", LudoInfo[i][gTimeStart]); 
+				format(string, sizeof string,"%i", LudoInfo[i][gTimeStart]); 
 
 				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
 				{
