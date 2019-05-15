@@ -16,8 +16,17 @@ stock LudoPlayerEnterToRoom(playerid, roomid)
 
 	PlayerLudo[playerid][uWorld] = roomid+LUDO_WORLD;
 	PlayerLudo[playerid][uRoomID] = roomid;
-	LudoInfo[roomid-1][gNumPlayers]++;
-	PlayerLudo[playerid][uNumber] = LudoInfo[roomid-1][gNumPlayers];
+
+	for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
+	{
+		if (LudoInfo[roomid-1][gPlayersID][i] == 0)
+		{
+			LudoInfo[roomid-1][gNumPlayers]++;
+			LudoInfo[roomid-1][gPlayersID][i] = playerid;
+			PlayerLudo[playerid][uNumber] = i+1;
+			break;
+		}
+	}
 
 	if (LudoInfo[roomid-1][gNumPlayers] == MAX_LUDO_PLAYERS)
 		LudoInfo[roomid-1][gTimeStart] = LUDO_TIME_START;
@@ -54,10 +63,12 @@ public LudoPlayerSpawnTimer(playerid)
 stock LudoPlayerExitFromRoom(playerid)
 {
 	new
+		index = PlayerLudo[playerid][uNumber]-1,
 		roomid = PlayerLudo[playerid][uRoomID]-1;
 
 	LudoInfo[roomid][gNumPlayers]--;
 	LudoInfo[roomid][gTimeStart] = 0;
+	LudoInfo[roomid][gPlayersID][index] = 0;
 
 	for (new i = 0; i < MAX_LUDO_PLAYER_POINTS; i++)
 	{
