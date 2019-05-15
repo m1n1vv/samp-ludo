@@ -21,6 +21,11 @@ public LudoTimer()
 			{
 				SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
 			}
+			
+			if (LudoInfo[i][gTimeGame] == 0)
+			{
+				LudoInfo[i][gGameStart] = 0;
+			}
 
 			continue;
 		}
