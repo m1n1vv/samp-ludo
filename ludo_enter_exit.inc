@@ -12,10 +12,10 @@ stock LudoPlayerEnterToRoom(playerid, roomid)
 		string[sizeof str + 3 + 10 - 2*2];
 		
 	if (LudoInfo[roomid-1][gNumPlayers] == MAX_LUDO_PLAYERS)
-		return 0;
+		return LudoRoomsList(playerid);
 
 	if (LudoInfo[roomid-1][gGameStart] == 1 || LudoInfo[roomid-1][gGameStart] == -1)
-		return 0;
+		return LudoRoomsList(playerid);
 
 	format(string, sizeof string, str, roomid, roomid+LUDO_WORLD);
 	SendClientMessage(playerid, -1, string);
