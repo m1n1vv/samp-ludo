@@ -24,7 +24,7 @@ public LudoTimer()
 			
 			if (LudoInfo[i][gTimeGame] == 0)
 			{
-				LudoInfo[i][gGameStart] = 0;
+				LudoInfo[i][gGameStart] = -1;
 			}
 
 			continue;
