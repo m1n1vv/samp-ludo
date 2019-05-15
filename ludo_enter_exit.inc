@@ -10,11 +10,11 @@ stock LudoPlayerEnterToRoom(playerid, roomid)
 
 	static
 		string[sizeof str + 3 + 10 - 2*2];
-		
-	if (LudoInfo[roomid-1][gNumPlayers] == MAX_LUDO_PLAYERS)
+
+	if (LudoInfo[roomid][gNumPlayers] == MAX_LUDO_PLAYERS)
 		return LudoRoomsList(playerid);
 
-	if (LudoInfo[roomid-1][gGameStart] != 0)
+	if (LudoInfo[roomid][gGameStart] != 0)
 		return LudoRoomsList(playerid);
 
 	format(string, sizeof string, str, roomid, roomid+LUDO_WORLD);
@@ -25,17 +25,20 @@ stock LudoPlayerEnterToRoom(playerid, roomid)
 
 	for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
 	{
-		if (LudoInfo[roomid-1][gPlayersID][i] == -1)
+		if (LudoInfo[roomid][gPlayersID][i] == -1)
 		{
-			LudoInfo[roomid-1][gNumPlayers]++;
-			LudoInfo[roomid-1][gPlayersID][i] = playerid;
+			LudoInfo[roomid][gNumPlayers]++;
+			LudoInfo[roomid][gPlayersID][i] = playerid;
 			PlayerLudo[playerid][uNumber] = i+1;
 			break;
 		}
 	}
 
-	if (LudoInfo[roomid-1][gNumPlayers] == MAX_LUDO_PLAYERS)
-		LudoInfo[roomid-1][gTimeStart] = LUDO_TIME_START;
+	if (LudoInfo[roomid][gNumPlayers] == MAX_LUDO_PLAYERS)
+	{
+		LudoInfo[roomid][gTimeStart] = LUDO_TIME_START;
+		LudoInfo[roomid][gRoomTimer] = SetTimerEx("LudoTimerStartGame", 1000, true, "i", roomid);
+	}
 	
 	GetPlayerPos(playerid, PlayerLudo[playerid][uOldPos_x], PlayerLudo[playerid][uOldPos_y], PlayerLudo[playerid][uOldPos_z]);
 	PlayerLudo[playerid][uOldWorld] = GetPlayerVirtualWorld(playerid);
@@ -70,11 +73,17 @@ stock LudoPlayerExitFromRoom(playerid)
 {
 	new
 		index = PlayerLudo[playerid][uNumber]-1,
-		roomid = PlayerLudo[playerid][uRoomID]-1;
+		roomid = PlayerLudo[playerid][uRoomID];
 
 	LudoInfo[roomid][gNumPlayers]--;
 	LudoInfo[roomid][gTimeStart] = 0;
 	LudoInfo[roomid][gPlayersID][index] = -1;
+
+	if (LudoInfo[roomid][gGameStart] == 0 && LudoInfo[roomid][gRoomTimer] != 0)
+	{
+		KillTimer(LudoInfo[roomid][gRoomTimer]);
+		LudoInfo[roomid][gRoomTimer] = 0;
+	}
 
 	for (new i = 0; i < MAX_LUDO_PLAYER_POINTS; i++)
 	{
