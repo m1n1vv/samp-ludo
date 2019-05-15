@@ -21,7 +21,7 @@ CMD:invite(playerid, params[])
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": Вы не в комнате");
 
 	if (isnull(params))
-		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": /invite [id]");
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": /ex [id]");
 
 	new
 		roomid = PlayerLudo[playerid][uRoomID],
