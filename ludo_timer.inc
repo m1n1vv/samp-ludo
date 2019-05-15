@@ -38,7 +38,9 @@ public LudoTimer()
 				format(string, sizeof string,"%d", LudoInfo[i][gTimeStart]); 
 
 				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
+				{
 					SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
+				}
 			}
 		}
 	}
