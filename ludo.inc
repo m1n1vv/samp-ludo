@@ -39,6 +39,7 @@ enum
 	{
 		gAccessToRoom,
 		gGameStart,
+		gRoomTimer,
 		gPlayersID[MAX_LUDO_PLAYERS],
 		gNumPlayers,
 		gTimeStart,
@@ -102,7 +103,7 @@ new const
 new
 	MAX_LUDO_CREATE_GAMES = 10,
 	PlayerLudo[MAX_PLAYERS][ludo_player_info],
-	LudoInfo[MAX_LUDO_GAMES][ludo_game_info] = {{0, 0, {-1, -1, -1, -1}, 0, 0, 0}, ...};
+	LudoInfo[MAX_LUDO_GAMES][ludo_game_info] = {{0, 0, 0, {-1, -1, -1, -1}, 0, 0, 0}, ...};
 
 static
 	ludo_main_zone;
