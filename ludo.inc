@@ -39,6 +39,7 @@ enum
 	{
 		gAccessToRoom,
 		gGameStart,
+		gPlayersID[MAX_LUDO_PLAYERS],
 		gNumPlayers,
 		gTimeStart,
 		gTimeGame
