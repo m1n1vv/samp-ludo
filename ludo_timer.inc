@@ -32,22 +32,19 @@ public LudoTimer()
 		{
 			if (--LudoInfo[i][gTimeStart] != 0)
 			{
-				format(string, sizeof string, "%i", LudoInfo[i][gTimeStart]); 
-
-				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
-				{
-					SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
-				}
+				format(string, sizeof string, "%i", LudoInfo[i][gTimeStart]);
 			}
 			else
 			{
-				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
-				{
-					SendClientMessage(LudoInfo[i][gPlayersID][j], -1, !"START");
-				}
+				format(string, sizeof string, "START");
 
 				LudoInfo[i][gGameStart] = 1;
 				LudoInfo[i][gTimeGame] = 1200;
+			}
+
+			for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
+			{
+				SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
 			}
 		}
 	}
