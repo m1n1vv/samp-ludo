@@ -35,7 +35,9 @@ CMD:invite(playerid, params[])
 
 	if (!IsPlayerConnected(id))
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок не найден");
-
+		
+	if (LudoInfo[roomid-1][gGameStart] != 0)
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игра уже началась");
 
 	if (PlayerLudo[id][uRoomID] != 0)
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок в другой комнате");
@@ -63,6 +65,9 @@ CMD:ex(playerid, params[])
 
 	if (!IsPlayerConnected(id))
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок не найден");
+		
+	if (LudoInfo[roomid-1][gGameStart] != 0)
+		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игра уже началась");
 
 	if (PlayerLudo[id][uRoomID] != roomid)
 		return SendClientMessage(playerid, -1, !""#LUDO_TITLE": игрок в другой комнате");
