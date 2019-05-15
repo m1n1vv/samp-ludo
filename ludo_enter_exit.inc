@@ -25,7 +25,7 @@ stock LudoPlayerEnterToRoom(playerid, roomid)
 
 	for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
 	{
-		if (LudoInfo[roomid-1][gPlayersID][i] == 0)
+		if (LudoInfo[roomid-1][gPlayersID][i] == -1)
 		{
 			LudoInfo[roomid-1][gNumPlayers]++;
 			LudoInfo[roomid-1][gPlayersID][i] = playerid;
@@ -74,7 +74,7 @@ stock LudoPlayerExitFromRoom(playerid)
 
 	LudoInfo[roomid][gNumPlayers]--;
 	LudoInfo[roomid][gTimeStart] = 0;
-	LudoInfo[roomid][gPlayersID][index] = 0;
+	LudoInfo[roomid][gPlayersID][index] = -1;
 
 	for (new i = 0; i < MAX_LUDO_PLAYER_POINTS; i++)
 	{
