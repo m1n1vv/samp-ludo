@@ -28,7 +28,7 @@ public LudoTimerStartGame(roomid)
 		}
 
 		LudoInfo[roomid][gGameStart] = 1;
-		LudoInfo[roomid][gTimeGame] = 1200;
+		LudoInfo[roomid][gTimeGame] = LUDO_TIME_GAME;
 	}
 
 	return 1;
