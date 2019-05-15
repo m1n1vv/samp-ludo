@@ -28,7 +28,7 @@ public LudoTimer()
 		if (LudoInfo[i][gNumPlayers] < MAX_LUDO_PLAYERS)
 			continue;
 
-		if (LudoInfo[i][gGameStart] == 0 && LudoInfo[i][gNumPlayers] == 4)
+		if (LudoInfo[i][gGameStart] == 0 && LudoInfo[i][gNumPlayers] == MAX_LUDO_PLAYERS)
 		{
 			LudoInfo[i][gTimeStart]--;
 
