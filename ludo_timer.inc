@@ -3,54 +3,60 @@
 #endif
 #define LUDO_TIMER
 
-forward LudoTimer();
-public LudoTimer()
+forward LudoTimerStartGame(roomid);
+public LudoTimerStartGame(roomid)
+{
+	static
+		string[3];
+		
+	if (--LudoInfo[roomid][gTimeStart] != 0)
+	{
+		format(string, sizeof string, "%i", LudoInfo[roomid][gTimeStart]); 
+
+		for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
+		{
+			SendClientMessage(LudoInfo[roomid][gPlayersID][i], -1, string);
+		}
+	}
+	else
+	{
+		for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
+		{
+			SendClientMessage(LudoInfo[roomid][gPlayersID][i], -1, !"START");
+			KillTimer(LudoInfo[roomid][gRoomTimer]);
+			LudoInfo[roomid][gRoomTimer] = SetTimerEx("LudoTimerTimeGame", 1000, true, "i", roomid);
+		}
+
+		LudoInfo[roomid][gGameStart] = 1;
+		LudoInfo[roomid][gTimeGame] = 1200;
+	}
+
+	return 1;
+}
+
+forward LudoTimerTimeGame(roomid);
+public LudoTimerTimeGame(roomid)
 {
 	static
 		string[6];
 		
-	for(new i = 0; i < MAX_LUDO_CREATE_GAMES; i++)
+	LudoInfo[roomid][gTimeGame]--;
+
+	format(string, sizeof string, "%02i:%02i", LudoInfo[roomid][gTimeGame]/60, LudoInfo[roomid][gTimeGame]%60); 
+
+	for (new i = 0; i < MAX_LUDO_PLAYERS; i++)
 	{
-		if (LudoInfo[i][gGameStart] == 1)
-		{
-			LudoInfo[i][gTimeGame]--;
-
-			format(string, sizeof string, "%02i:%02i", LudoInfo[i][gTimeGame]/60, LudoInfo[i][gTimeGame]%60); 
-
-			for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
-			{
-				SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
-			}
-
-			if (LudoInfo[i][gTimeGame] == 0)
-			{
-				LudoInfo[i][gGameStart] = -1;
-				//LudoWinner();
-			}
-		}
-		else if (LudoInfo[i][gGameStart] == 0 && LudoInfo[i][gNumPlayers] == MAX_LUDO_PLAYERS)
-		{
-			if (--LudoInfo[i][gTimeStart] != 0)
-			{
-				format(string, sizeof string, "%i", LudoInfo[i][gTimeStart]); 
-
-				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
-				{
-					SendClientMessage(LudoInfo[i][gPlayersID][j], -1, string);
-				}
-			}
-			else
-			{
-				for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
-				{
-					SendClientMessage(LudoInfo[i][gPlayersID][j], -1, !"START");
-				}
-
-				LudoInfo[i][gGameStart] = 1;
-				LudoInfo[i][gTimeGame] = 1200;
-			}
-		}
+		SendClientMessage(LudoInfo[roomid][gPlayersID][i], -1, string);
 	}
+
+	if (LudoInfo[roomid][gTimeGame] == 0)
+	{
+		KillTimer(LudoInfo[roomid][gRoomTimer]);
+		LudoInfo[roomid][gRoomTimer] = 0;
+		LudoInfo[roomid][gGameStart] = -1;
+		//LudoWinner();
+	}
+
 
 	return 1;
 }
