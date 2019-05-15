@@ -29,11 +29,7 @@ public LudoTimer()
 
 			continue;
 		}
-
-		if (LudoInfo[i][gNumPlayers] < MAX_LUDO_PLAYERS)
-			continue;
-
-		if (LudoInfo[i][gGameStart] == 0 && LudoInfo[i][gNumPlayers] == MAX_LUDO_PLAYERS)
+		else if (LudoInfo[i][gGameStart] == 0 && LudoInfo[i][gNumPlayers] == MAX_LUDO_PLAYERS)
 		{
 			LudoInfo[i][gTimeStart]--;
 
