@@ -28,7 +28,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		else
 		{
 			new
-				room_id = ludo_dialog_listitem[listitem]+1;
+				room_id = ludo_dialog_listitem[listitem];
 
 			LudoPlayerEnterToRoom(playerid, room_id);
 		}
@@ -49,7 +49,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			case 1:
 			{
 				MAX_LUDO_CREATE_GAMES++;
-				LudoInfo[MAX_LUDO_CREATE_GAMES-1][gAccessToRoom] = PlayerLudo[playerid][uAccessRoom];
+				LudoInfo[MAX_LUDO_CREATE_GAMES][gAccessToRoom] = PlayerLudo[playerid][uAccessRoom];
 				PlayerLudo[playerid][uAccessRoom] = 0;
 				PlayerLudo[playerid][uRoomAdmin] = MAX_LUDO_CREATE_GAMES;
 
@@ -115,7 +115,7 @@ stock LudoRoomsList(playerid)
 		str[SIZE_LINE],
 		string[SIZE_LINE*MAX_LUDO_GAMES] = "Комната\tИгроки\nСоздать\t \n";
 
-	for (new i = 0; i < MAX_LUDO_CREATE_GAMES; i++)
+	for (new i = 1; i <= MAX_LUDO_CREATE_GAMES; i++)
 	{
 		if (LudoInfo[i][gGameStart] != 0)
 			continue;
@@ -129,7 +129,7 @@ stock LudoRoomsList(playerid)
 		ludo_dialog_listitem[listitemid] = i;
 		listitemid++;
 
-		format(str, sizeof str, "Комната №%i\t(%i/4)\n", i+1, LudoInfo[i][gNumPlayers]);
+		format(str, sizeof str, "Комната №%i\t(%i/4)\n", i, LudoInfo[i][gNumPlayers]);
 		strcat(string, str);
 	}
 
