@@ -15,7 +15,7 @@ public LudoTimer()
 		{
 			LudoInfo[i][gTimeGame]--;
 
-			format(string, sizeof string,"%i:%i", LudoInfo[i][gTimeGame]/60, LudoInfo[i][gTimeGame]%60); 
+			format(string, sizeof string,"%02i:%02i", LudoInfo[i][gTimeGame]/60, LudoInfo[i][gTimeGame]%60); 
 
 			for (new j = 0; j < MAX_LUDO_PLAYERS; j++)
 			{
